@@ -19,7 +19,6 @@ namespace PacMan
             this.y = y;
             tileColor = color;
             tileSymbol = symbol;
-            Draw();
         }
 
         public void Draw()
