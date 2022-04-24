@@ -9,6 +9,12 @@ namespace PacMan.Entities
     class Pinky : Tile
     {
         public Pinky(int x, int y)
-            : base(x, y, ConsoleColor.Magenta, 'A') {}
+            : base(x, y, 'A') {}
+
+        public override void Draw()
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            base.Draw();
+        }
     }
 }

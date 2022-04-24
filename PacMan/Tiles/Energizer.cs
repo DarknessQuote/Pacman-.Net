@@ -9,6 +9,12 @@ namespace PacMan.Tiles
     class Energizer : Tile
     {
         public Energizer(int x, int y)
-            : base(x, y, ConsoleColor.Yellow, 'o') {} 
+            : base(x, y, 'o') {}
+
+        public override void Draw()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            base.Draw();
+        }
     }
 }

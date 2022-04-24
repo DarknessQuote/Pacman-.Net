@@ -9,6 +9,12 @@ namespace PacMan.Tiles
     class Dot : Tile
     {
         public Dot(int x, int y)
-            : base(x, y, ConsoleColor.Yellow, '·') {}
+            : base(x, y, '·') {}
+
+        public override void Draw()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            base.Draw();
+        }
     }
 }
