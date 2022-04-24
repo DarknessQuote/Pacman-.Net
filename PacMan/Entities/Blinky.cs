@@ -9,6 +9,12 @@ namespace PacMan.Entities
     class Blinky : Tile
     {
         public Blinky(int x, int y)
-            : base(x, y, ConsoleColor.Red, 'A') {}
+            : base(x, y, 'A') {}
+
+        public override void Draw()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            base.Draw();
+        }
     }
 }

@@ -10,21 +10,17 @@ namespace PacMan
     {
         protected int x;
         protected int y;
-        protected ConsoleColor tileColor;
         protected char tileSymbol;
 
-        public Tile(int x, int y, ConsoleColor color, char symbol)
+        public Tile(int x, int y, char symbol)
         {
             this.x = x;
             this.y = y;
-            tileColor = color;
             tileSymbol = symbol;
-            Draw();
         }
 
-        public void Draw()
+        public virtual void Draw()
         {
-            Console.ForegroundColor = tileColor;
             Console.Write(tileSymbol);
         }
 

@@ -9,6 +9,12 @@ namespace PacMan.Tiles
     class EmptyTile : Tile
     {
         public EmptyTile(int x, int y)
-            : base(x, y, ConsoleColor.Black, ' ') {}
+            : base(x, y, ' ') {}
+
+        public override void Draw()
+        {
+            Console.ForegroundColor = ConsoleColor.Black;
+            base.Draw();
+        }
     }
 }

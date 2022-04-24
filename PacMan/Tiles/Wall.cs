@@ -9,6 +9,12 @@ namespace PacMan.Tiles
     class Wall : Tile
     {
         public Wall(int x, int y)
-            : base(x, y, ConsoleColor.DarkBlue, '#') {}
+            : base(x, y, '#') {}
+
+        public override void Draw()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            base.Draw();
+        }
     }
 }

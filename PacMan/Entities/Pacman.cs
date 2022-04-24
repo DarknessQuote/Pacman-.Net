@@ -9,6 +9,12 @@ namespace PacMan.Entities
     class Pacman : Tile
     {
         public Pacman(int x, int y)
-            : base (x, y, ConsoleColor.Yellow, 'c') {}
+            : base (x, y, 'c') {}
+
+        public override void Draw()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            base.Draw();
+        }
     }
 }
