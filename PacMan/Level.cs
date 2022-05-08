@@ -10,17 +10,18 @@ namespace PacMan
 {
     class Level
     {
-        Tile[,] map;
+        public Tile[,] map;
 
         public Level(int height, int width)
         {
             GenerateLevel(height, width);
-            PrintLevel(map);
+            PrintLevel();
         }
 
         private void GenerateLevel(int height, int width)
         {
             map = new Tile[height, width];
+
             for (int x = 0; x < height; x++)
             {
                 for (int y = 0; y < width; y++)
@@ -30,14 +31,16 @@ namespace PacMan
                         map[x, y] = new Wall(x, y);
                         continue;
                     }
-                    map[x, y] = new Dot(x, y);
+                    map[x, y] = new EmptyTile(x, y);
                 }
-                Console.WriteLine();
             }
+
+            map[height / 2, width / 2] = new Pacman(height / 2, width / 2);
         }
 
-        private void PrintLevel(Tile[,] map)
+        public void PrintLevel()
         {
+            Console.Clear();
             for (int x = 0; x < map.GetLength(0); x++)
             {
                 for (int y = 0; y < map.GetLength(1); y++)

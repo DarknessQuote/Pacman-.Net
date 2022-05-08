@@ -24,7 +24,7 @@ namespace PacMan
             Console.Write(tileSymbol);
         }
 
-        public (int, int) GetTile()
+        public (int, int) GetCoordinates()
         {
             return (x, y);
         }
