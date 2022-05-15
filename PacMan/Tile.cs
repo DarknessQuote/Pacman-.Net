@@ -8,25 +8,20 @@ namespace PacMan
 {
     abstract class Tile
     {
-        protected int x;
-        protected int y;
-        protected char tileSymbol;
+        public int y;
+        public int x;
+        public char tileSymbol;
 
-        public Tile(int x, int y, char symbol)
+        public Tile(int y, int x, char symbol)
         {
-            this.x = x;
             this.y = y;
+            this.x = x;
             tileSymbol = symbol;
         }
 
         public virtual void Draw()
         {
             Console.Write(tileSymbol);
-        }
-
-        public (int, int) GetCoordinates()
-        {
-            return (x, y);
         }
     }
 }

@@ -17,8 +17,8 @@ namespace PacMan.Entities
             RIGHT = ConsoleKey.D
         }
 
-        public Pacman(int x, int y)
-            : base (x, y, 'c') {}
+        public Pacman(int y, int x)
+            : base (y, x, 'c') {}
 
         public override void Draw()
         {
@@ -26,38 +26,38 @@ namespace PacMan.Entities
             base.Draw();
         }
 
-        public void Move(Tile[,] map, ConsoleKey direction)
+        public void Move(Map map, ConsoleKey direction)
         {
-            map[x, y] = new EmptyTile(x, y);
-            (int x, int y) estLocation;
+            map.SetTile(y, x, new EmptyTile(y, x));
+            Tile estLocation;
 
             switch (direction)
             {
                 case (ConsoleKey)Direction.UP:
-                    estLocation = map[x - 1, y].GetCoordinates();
+                    estLocation = map.GetTile(y, x - 1);
                     break;
                 case (ConsoleKey)Direction.DOWN:
-                    estLocation = map[x + 1, y].GetCoordinates();
+                    estLocation = map.GetTile(y, x + 1);
                     break;
                 case (ConsoleKey)Direction.LEFT:
-                    estLocation = map[x, y - 1].GetCoordinates();
+                    estLocation = map.GetTile(y - 1, x);
                     break;
                 case (ConsoleKey)Direction.RIGHT:
-                    estLocation = map[x, y + 1].GetCoordinates();
+                    estLocation = map.GetTile(y + 1, x);
                     break;
                 default:
-                    estLocation = GetCoordinates();
+                    estLocation = map.GetTile(y, x);
                     break;
             }
 
-            if (map[estLocation.x, estLocation.y] is Wall)
+            if (estLocation is Wall)
             {
-                estLocation = GetCoordinates();
+                estLocation = map.GetTile(y, x);
             }
 
-            map[estLocation.x, estLocation.y] = new Pacman(estLocation.x, estLocation.y);
             x = estLocation.x;
             y = estLocation.y;
+            map.SetTile(y, x, new Pacman(y, x));
         }
     }
 }

@@ -13,17 +13,17 @@ namespace PacMan
         public Game()
         {
             Console.CursorVisible = false;
-            Level level = new Level(27, 31);
+            Level level = new Level(9, 9);
             GameLoop(level);
         }
         public void GameLoop(Level level)
         {
-            Pacman player = (Pacman)level.map[13, 15];
+            Pacman player = (Pacman)level.Map.GetTile(4, 4);
             while (true)
             {
                 ConsoleKey input = Console.ReadKey().Key;
-                player.Move(level.map, input);
-                level.PrintLevel();
+                player.Move(level.Map, input);
+                level.UpdateLevel();
             }
         }
     }
