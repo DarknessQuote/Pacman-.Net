@@ -1,4 +1,5 @@
 ﻿using System;
+using PacMan.GameApplication;
 
 namespace PacMan
 {
@@ -6,7 +7,7 @@ namespace PacMan
     {
         static void Main()
         {
-            new Game();
+            new GameProcess();
         }
     }
 }
