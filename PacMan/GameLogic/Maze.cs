@@ -41,6 +41,9 @@ namespace PacMan.GameLogic
         {
             map = MapLoader.LoadMap(@"GameContent\PacmanMap.txt");
             Player = GetPacmanTile();
+
+            DotCount = 10;
+            EatableTile.TileEaten += () => DotCount--;
         }
 
         private Tile GetPacmanTile()

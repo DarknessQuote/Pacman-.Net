@@ -11,6 +11,9 @@ namespace PacMan.Entities
         private Direction _playerDirection;
         private Tile tileUnderneath;
 
+        public event Action<int> OnDotEaten;
+        public event Action<int> OnPowerPelletEaten;
+
         public Player(Tile player, Maze maze)
         {
             this.player = player;
@@ -74,8 +77,15 @@ namespace PacMan.Entities
         {
             switch (tileUnderneath)
             {
-                case (EatableTile eTile):
-                    eTile.Eat();
+                case (Dot dot):
+                    if (dot.IsEaten) break;
+                    dot.Eat();
+                    OnDotEaten?.Invoke(10);
+                    break;                    
+                case (PowerPellet pp):
+                    if (pp.IsEaten) break;
+                    pp.Eat();
+                    OnPowerPelletEaten?.Invoke(30);
                     break;
             }
         }

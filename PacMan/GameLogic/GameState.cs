@@ -17,16 +17,25 @@ namespace PacMan.GameLogic
             Score = score;
             Lives = lives;
             player = new Player(maze.Player, maze);
+
+            player.OnDotEaten += AddScore;
+            player.OnPowerPelletEaten += AddScore;
         }
 
         public void Update()
         {
             player.Move();
+            if (maze.DotCount == 0) Environment.Exit(0);
         }
 
         public void GetInput(ConsoleKey input)
         {
             player.ChangeDirection(input);
+        }
+
+        private void AddScore(int scoreToAdd)
+        {
+            Score += scoreToAdd;
         }
     }
 }
