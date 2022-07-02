@@ -11,7 +11,7 @@ namespace PacMan.GameView.Screens
     {
         private readonly Renderer renderer;
         private readonly Maze maze;
-        private readonly Game game;
+        private readonly GameState game;
 
         private int screenWidth;
         private int screenHeight;
@@ -25,7 +25,7 @@ namespace PacMan.GameView.Screens
         {
             this.renderer = renderer;
             maze = new Maze();
-            game = new Game(maze);
+            game = new GameState(maze);
 
             game.ScoreAdded += RenderScore;
         }
@@ -48,7 +48,7 @@ namespace PacMan.GameView.Screens
         {
             game.Update();
             RenderMaze();
-            if (game.State == GameState.Won)
+            if (game.State == CurrentState.Won)
             {
                 renderer.SwitchScreens(new IntroScreen(renderer));
             }
@@ -65,9 +65,12 @@ namespace PacMan.GameView.Screens
             {
                 for (int y = 0; y < maze.Height; y++)
                 {
-                    maze[x, y].DrawTile();
+                    Console.SetCursorPosition(x, y);
+                    Console.ForegroundColor = maze[x, y].TileColor;
+                    Console.Write(maze[x, y].TileTexture);
                 }
             }
+            Console.ResetColor();
         }
 
         private void RenderScore(int score)

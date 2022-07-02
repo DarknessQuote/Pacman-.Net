@@ -4,9 +4,8 @@ namespace PacMan.Tiles
 {
     abstract class Tile
     {
-        protected char tileTexture;
-        protected ConsoleColor tileColor;
-
+        public char TileTexture { get; protected set; }
+        public ConsoleColor TileColor { get; protected set; }
         public int CoordX { get; set; }
         public int CoordY { get; set; }
 
@@ -14,8 +13,8 @@ namespace PacMan.Tiles
         {
             CoordX = x;
             CoordY = y;
-            tileTexture = texture;
-            tileColor = color;
+            TileTexture = texture;
+            TileColor = color;
         }
 
         public static Tile CreateTile(char tile, int x, int y)
@@ -29,13 +28,6 @@ namespace PacMan.Tiles
                 '\0' => new EmptyTile(x, y),
                 _ => new EmptyTile(x, y)
             };
-        }
-
-        public void DrawTile()
-        {
-            Console.SetCursorPosition(CoordX, CoordY);
-            Console.ForegroundColor = tileColor;
-            Console.Write(tileTexture);
         }
     }
 }

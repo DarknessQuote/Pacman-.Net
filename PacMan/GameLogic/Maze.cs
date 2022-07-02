@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using PacMan.Tiles;
 
 namespace PacMan.GameLogic
@@ -43,18 +42,18 @@ namespace PacMan.GameLogic
             EatableTile.EatableTileCreated += () => DotCount++;
             EatableTile.EatableTileEaten += () => DotCount--;
 
-            char[,] mapLayout = MapLoader.LoadMapLayout(@"GameContent\PacmanMap.txt");
+            char[,] mapLayout = GameApplication.MapLoader.LoadMapLayout(@"GameContent\PacmanMap.txt");
             map = new Tile[mapLayout.GetLength(0), mapLayout.GetLength(1)];
-            FillMap();
+            FillMap(mapLayout);            
+        }
 
-            void FillMap()
+        void FillMap(char[,] layout)
+        {
+            for (int y = 0; y < Height; y++)
             {
-                for (int y = 0; y < Height; y++)
+                for (int x = 0; x < Width; x++)
                 {
-                    for (int x = 0; x < Width; x++)
-                    {
-                        map[x, y] = Tile.CreateTile(mapLayout[x, y], x, y);
-                    }
+                    map[x, y] = Tile.CreateTile(layout[x, y], x, y);
                 }
             }
         }

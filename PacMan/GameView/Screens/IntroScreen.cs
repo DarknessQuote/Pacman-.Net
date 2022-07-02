@@ -16,7 +16,7 @@ namespace PacMan.GameView.Screens
         public IntroScreen(Renderer renderer)
         {
             this.renderer = renderer;
-            menuOptions = new string[] { "1. Start game", "2. Exit" };
+            menuOptions = new string[] { "New Game", "Exit" };
             selectedOption = menuOptions[0];
             selectedOptionIndex = 0;
         }
@@ -29,6 +29,11 @@ namespace PacMan.GameView.Screens
                 Console.SetWindowSize(20, 20);
                 Console.SetBufferSize(20, 20);
             }
+
+            Console.SetCursorPosition(7, 2);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Pacman");
+            Console.ResetColor();
         }
 
         public void Render()
@@ -36,10 +41,10 @@ namespace PacMan.GameView.Screens
             int i = 0;
             foreach (string option in menuOptions)
             {
-                Console.SetCursorPosition(0, i++);
+                Console.SetCursorPosition(10 - (option.Length / 2), 4 + i++);
                 if (option == selectedOption)
                 {
-                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.BackgroundColor = ConsoleColor.DarkBlue;
                 }
                 Console.WriteLine(option);
                 Console.ResetColor();
@@ -51,18 +56,24 @@ namespace PacMan.GameView.Screens
             switch (key)
             {
                 case (ConsoleKey.UpArrow):
-                    if (selectedOptionIndex == 0) break;
-                    selectedOption = menuOptions[selectedOptionIndex - 1];
-                    selectedOptionIndex -= 1;
+                    ScrollMenu(--selectedOptionIndex);
                     break;
                 case (ConsoleKey.DownArrow):
-                    if (selectedOptionIndex == menuOptions.Length - 1) break;
-                    selectedOption = menuOptions[selectedOptionIndex + 1];
-                    selectedOptionIndex += 1;
+                    ScrollMenu(++selectedOptionIndex);
                     break;
                 case (ConsoleKey.Enter):
                     SelectOption(selectedOption);
                     break;
+            }
+
+            void ScrollMenu(int index)
+            {
+                if (index == -1 || index == menuOptions.Length)
+                {
+                    selectedOptionIndex = Math.Abs(Math.Abs(index) - menuOptions.Length);
+                }
+
+                selectedOption = menuOptions[selectedOptionIndex];
             }
         }
 

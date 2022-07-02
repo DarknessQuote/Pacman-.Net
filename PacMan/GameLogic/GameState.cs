@@ -3,24 +3,24 @@ using PacMan.Entities;
 
 namespace PacMan.GameLogic
 {
-    class Game
+    class GameState
     {
         private readonly Maze maze;
         private readonly Player player;
 
-        public GameState State { get; private set; }
+        public CurrentState State { get; private set; }
         public int Score { get; private set; }
         public int Lives { get; private set; }
 
         public event Action<int> ScoreAdded;
 
-        public Game(Maze maze, int score = 0, int lives = 3)
+        public GameState(Maze maze, int score = 0, int lives = 3)
         {
             this.maze = maze;
             player = new Player(maze.Player, maze);
             Score = score;
             Lives = lives;
-            State = GameState.Playing;
+            State = CurrentState.Playing;
 
             player.OnDotEaten += () => AddScore(10);
             player.OnPowerPelletEaten += () => AddScore(30);
@@ -31,7 +31,7 @@ namespace PacMan.GameLogic
             player.Move();
             if (maze.DotCount == 0)
             {
-                State = GameState.Won;
+                State = CurrentState.Won;
             }
         }
 
@@ -47,7 +47,7 @@ namespace PacMan.GameLogic
         }
     }
 
-    enum GameState 
+    enum CurrentState 
     {
         Playing,
         Won,
