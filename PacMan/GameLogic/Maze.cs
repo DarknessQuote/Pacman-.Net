@@ -5,14 +5,14 @@ namespace PacMan.GameLogic
 {
     class Maze
     {
-        private readonly Tile[,] map;
+        private readonly Cell[,] map;
 
         public (int X, int Y) PlayerStartingCoords { get; private set; }
         public int DotCount { get; private set; }
         public int Width { get => map.GetLength(0); }
         public int Height { get => map.GetLength(1); }        
 
-        public Tile this[int x, int y]
+        public Cell this[int x, int y]
         {
             get
             {
@@ -43,7 +43,7 @@ namespace PacMan.GameLogic
             EatableTile.EatableTileEaten += () => DotCount--;
 
             char[,] mapLayout = GameApplication.MapLoader.LoadMapLayout(@"GameContent\PacmanMap.txt");
-            map = new Tile[mapLayout.GetLength(0), mapLayout.GetLength(1)];
+            map = new Cell[mapLayout.GetLength(0), mapLayout.GetLength(1)];
             FillMap(mapLayout);            
         }
 
@@ -53,7 +53,10 @@ namespace PacMan.GameLogic
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    map[x, y] = Tile.CreateTile(layout[x, y], x, y);
+                    map[x, y] = new Cell(x, y);
+                    map[x, y].AddTile(new EmptyTile(x, y));
+                    var tile = Tile.CreateTile(layout[x, y], x, y);
+                    map[x, y].AddTile(tile);
                 }
             }
         }

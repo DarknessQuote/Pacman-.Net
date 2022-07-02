@@ -9,8 +9,7 @@ namespace PacMan.Entities
         private readonly Tile player;
         private readonly Maze maze;        
         private Direction playerDirection;
-        private Tile tileUnderneath;
-        private (int X, int Y) StartingCoordinates { get; set; }
+        private (int X, int Y) StartingCoords { get; set; }
 
         public event Action OnDotEaten;
         public event Action OnPowerPelletEaten;
@@ -18,24 +17,23 @@ namespace PacMan.Entities
         public Player(Maze maze)
         {
             this.maze = maze;
-            StartingCoordinates = maze.PlayerStartingCoords;
-            player = maze[StartingCoordinates.X, StartingCoordinates.Y];
+            StartingCoords = maze.PlayerStartingCoords;
+            player = maze[StartingCoords.X, StartingCoords.Y].GetTopTile();
 
             playerDirection = Direction.NONE;
-            tileUnderneath = new EmptyTile(player.CoordX, player.CoordY);
         }
 
         public void Move()
         {
             if (playerDirection == Direction.NONE) return;
-            Tile nextTile = GetNextTile(playerDirection);
-            if (nextTile is Wall)
+            Cell nextCell = GetNextCell(playerDirection);
+            if (nextCell.GetTopTile() is Wall)
             {
                 playerDirection = Direction.NONE;
                 return;
             }
-            ChangePlayerCoordinates(nextTile);
-            ProcessCollisions();
+            ChangePlayerCoordinates(nextCell);
+            CheckForDots();
         }
 
         public void ChangeDirection(ConsoleKey input)
@@ -49,11 +47,11 @@ namespace PacMan.Entities
                 _ => playerDirection
             };
 
-            if (GetNextTile(directionChanged) is Wall) return;
+            if (GetNextCell(directionChanged).GetTopTile() is Wall) return;
             playerDirection = directionChanged;
         }
 
-        private Tile GetNextTile(Direction direction)
+        private Cell GetNextCell(Direction direction)
         {
             return direction switch
             {
@@ -66,18 +64,17 @@ namespace PacMan.Entities
             };
         }
 
-        private void ChangePlayerCoordinates(Tile nextTile)
+        private void ChangePlayerCoordinates(Cell nextCell)
         {
-            maze[player.CoordX, player.CoordY] = tileUnderneath;
-            player.CoordX = nextTile.CoordX;
-            player.CoordY = nextTile.CoordY;
-            tileUnderneath = maze[player.CoordX, player.CoordY];
-            maze[player.CoordX, player.CoordY] = player;
+            maze[player.CoordX, player.CoordY].RemoveTile();
+            player.CoordX = nextCell.CellX;
+            player.CoordY = nextCell.CellY;
+            maze[player.CoordX, player.CoordY].AddTile(player);
         }
 
-        private void ProcessCollisions()
+        private void CheckForDots()
         {
-            switch (tileUnderneath)
+            switch (maze[player.CoordX, player.CoordY].GetUnderneathTile())
             {
                 case (Dot dot):
                     if (dot.IsEaten) break;
@@ -88,6 +85,8 @@ namespace PacMan.Entities
                     if (pp.IsEaten) break;
                     pp.Eat();
                     OnPowerPelletEaten?.Invoke();
+                    break;
+                default:
                     break;
             }
         }

@@ -66,8 +66,8 @@ namespace PacMan.GameView.Screens
                 for (int y = 0; y < maze.Height; y++)
                 {
                     Console.SetCursorPosition(x, y);
-                    Console.ForegroundColor = maze[x, y].TileColor;
-                    Console.Write(maze[x, y].TileTexture);
+                    Console.ForegroundColor = maze[x, y].GetTopTile().TileColor;
+                    Console.Write(maze[x, y].GetTopTile().TileTexture);
                 }
             }
             Console.ResetColor();
