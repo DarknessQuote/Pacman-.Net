@@ -8,28 +8,30 @@ namespace PacMan.Entities
     {
         private readonly Tile player;
         private readonly Maze maze;        
-        private Direction _playerDirection;
+        private Direction playerDirection;
         private Tile tileUnderneath;
+        private (int X, int Y) StartingCoordinates { get; set; }
 
         public event Action OnDotEaten;
         public event Action OnPowerPelletEaten;
 
-        public Player(Tile player, Maze maze)
+        public Player(Maze maze)
         {
-            this.player = player;
             this.maze = maze;
+            StartingCoordinates = maze.PlayerStartingCoords;
+            player = maze[StartingCoordinates.X, StartingCoordinates.Y];
 
-            _playerDirection = Direction.NONE;
+            playerDirection = Direction.NONE;
             tileUnderneath = new EmptyTile(player.CoordX, player.CoordY);
         }
 
         public void Move()
         {
-            if (_playerDirection == Direction.NONE) return;
-            Tile nextTile = GetNextTile(_playerDirection);
+            if (playerDirection == Direction.NONE) return;
+            Tile nextTile = GetNextTile(playerDirection);
             if (nextTile is Wall)
             {
-                _playerDirection = Direction.NONE;
+                playerDirection = Direction.NONE;
                 return;
             }
             ChangePlayerCoordinates(nextTile);
@@ -44,11 +46,11 @@ namespace PacMan.Entities
                 ConsoleKey.A => Direction.LEFT,
                 ConsoleKey.D => Direction.RIGHT,
                 ConsoleKey.S => Direction.DOWN,
-                _ => _playerDirection
+                _ => playerDirection
             };
 
             if (GetNextTile(directionChanged) is Wall) return;
-            _playerDirection = directionChanged;
+            playerDirection = directionChanged;
         }
 
         private Tile GetNextTile(Direction direction)

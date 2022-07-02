@@ -17,7 +17,7 @@ namespace PacMan.GameLogic
         public GameState(Maze maze, int score = 0, int lives = 3)
         {
             this.maze = maze;
-            player = new Player(maze.Player, maze);
+            player = new Player(maze);
             Score = score;
             Lives = lives;
             State = CurrentState.Playing;
