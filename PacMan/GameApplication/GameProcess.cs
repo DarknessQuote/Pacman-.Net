@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
+using System.Diagnostics;
 using PacMan.GameLogic;
 using PacMan.GameView;
 
@@ -10,28 +8,36 @@ namespace PacMan.GameApplication
 {
     class GameProcess
     {
-        private Renderer renderer;
+        private const int frameRate = 150;
+        private readonly Renderer renderer = new();
 
         public GameProcess()
         {
-            renderer = new Renderer();
             InitializeOptions();
-
-            renderer.Render();
             GameLoop();
         }
 
         private void GameLoop()
         {
+            var sw = new Stopwatch();
+
             while (true)
             {
+                sw.Start();
+
                 if (Console.KeyAvailable)
                 {
                     ConsoleKey key = Console.ReadKey(true).Key;
                     renderer.HandleInput(key);
                 }
                 renderer.Render();
-                Thread.Sleep(50);
+
+                sw.Stop();
+                var elapsed = sw.ElapsedMilliseconds;
+                sw.Reset();
+
+                int target = (int)((elapsed > frameRate) ? 0 : frameRate - elapsed);
+                Thread.Sleep(target);
             }
         }
 

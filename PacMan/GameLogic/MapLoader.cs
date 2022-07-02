@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using PacMan.Tiles;
+﻿using System.IO;
 
 namespace PacMan.GameLogic
 {
     static class MapLoader
     {
-        public static Tile[,] LoadMap(string pathToMap)
+        public static char[,] LoadMapLayout(string pathToMap)
         {
-            string[] mapLayout = ReadFromFile(pathToMap);
-            Tile[,] map = CreateMap(mapLayout);
-            return FillMap(map, mapLayout);
+            string[] layoutStrings = ReadFromFile(pathToMap);
+            char[,] layout = new char[layoutStrings[0].Length, layoutStrings.Length];
+            return FillArray(layout, layoutStrings);
         }
 
         private static string[] ReadFromFile(string pathToMap)
@@ -23,25 +18,20 @@ namespace PacMan.GameLogic
             return File.ReadAllLines(fullPath);
         }
 
-        private static Tile[,] CreateMap(string[] mapLayout)
+        private static char[,] FillArray(char[,] layout, string[] mapLayout)
         {
-            return new Tile[mapLayout[0].Length, mapLayout.Length];
-        }
-
-        private static Tile[,] FillMap(Tile[,] map, string[] mapLayout)
-        {
-            for (int y = 0; y < map.GetLength(1); y++)
+            for (int y = 0; y < layout.GetLength(1); y++)
             {
                 string currentRow = mapLayout[y];
 
-                for (int x = 0; x < map.GetLength(0); x++)
+                for (int x = 0; x < layout.GetLength(0); x++)
                 {
                     char tile = currentRow[x];
-                    map[x, y] = Tile.CreateTile(tile, x, y);
+                    layout[x, y] = tile;
                 }
             }
 
-            return map;
+            return layout;
         }
     }
 }

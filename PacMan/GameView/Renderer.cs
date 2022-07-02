@@ -14,7 +14,8 @@ namespace PacMan.GameView
 
         public Renderer()
         {
-            currentScreen = new GameScreen();
+            currentScreen = new IntroScreen(this);
+            currentScreen.OnLoad();
         }
 
         public void Render() => currentScreen.Render();
@@ -24,6 +25,7 @@ namespace PacMan.GameView
         public void SwitchScreens(IScreen newScreen)
         {
             currentScreen = newScreen;
+            currentScreen.OnLoad();
         }
     }
 }

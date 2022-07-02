@@ -39,20 +39,24 @@ namespace PacMan.GameLogic
 
         public Maze()
         {
-            map = MapLoader.LoadMap(@"GameContent\PacmanMap.txt");
-            Player = GetPacmanTile();
+            Pacman.PacmanTileCreated += (pacmanTile) => Player = pacmanTile;
+            EatableTile.EatableTileCreated += () => DotCount++;
+            EatableTile.EatableTileEaten += () => DotCount--;
 
-            DotCount = 10;
-            EatableTile.TileEaten += () => DotCount--;
-        }
+            char[,] mapLayout = MapLoader.LoadMapLayout(@"GameContent\PacmanMap.txt");
+            map = new Tile[mapLayout.GetLength(0), mapLayout.GetLength(1)];
+            FillMap();
 
-        private Tile GetPacmanTile()
-        {
-            foreach (Tile tile in map)
+            void FillMap()
             {
-                if (tile is Pacman pacman) return pacman;
+                for (int y = 0; y < Height; y++)
+                {
+                    for (int x = 0; x < Width; x++)
+                    {
+                        map[x, y] = Tile.CreateTile(mapLayout[x, y], x, y);
+                    }
+                }
             }
-            return null;
         }
     }
 }

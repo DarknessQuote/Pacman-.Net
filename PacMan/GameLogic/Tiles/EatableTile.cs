@@ -5,18 +5,22 @@ namespace PacMan.Tiles
 {
     abstract class EatableTile : Tile
     {
-        public static event Action TileEaten;
+        public static event Action EatableTileCreated;
+        public static event Action EatableTileEaten;
 
         public bool IsEaten { get; set; } = false;
 
         public EatableTile(int x, int y, char texture, ConsoleColor color) :
-            base(x, y, texture, color) { }
+            base(x, y, texture, color) 
+        {
+            EatableTileCreated?.Invoke();
+        }
 
         public void Eat()
         {
             tileTexture = Constants.EMPTY_TILE;
             IsEaten = true;
-            TileEaten?.Invoke();
+            EatableTileEaten?.Invoke();
         }
     }
 }

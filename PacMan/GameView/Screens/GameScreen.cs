@@ -2,37 +2,61 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using PacMan.GameLogic;
 
 namespace PacMan.GameView.Screens
 {
     class GameScreen : IScreen
     {
+        private readonly Renderer renderer;
+        private readonly Maze maze;
+        private readonly Game game;
+
         private int screenWidth;
         private int screenHeight;
-        private const int screenScoreOffset = 8;
+        private const int screenInfoOffset = 8;
 
-        private readonly Maze maze;
-        private readonly GameState state;
+        private int infoPosX;
+        private int scoreInfoPosY;
+        private int livesInfoPosY;
 
-        public GameScreen()
+        public GameScreen(Renderer renderer)
         {
+            this.renderer = renderer;
             maze = new Maze();
-            state = new GameState(maze);
+            game = new Game(maze);
+
+            game.ScoreAdded += RenderScore;
+        }
+
+        public void OnLoad()
+        {
+            // These calculations ensure that the position of score and lives info will always be displayed
+            // in the middle of the info box and on the same distance from top and bottom of the window.
             ChangeWindowSize();
+            infoPosX = screenWidth - (screenInfoOffset / 2) - 3;
+            scoreInfoPosY = 6;
+            livesInfoPosY = screenHeight - 8;
+
+            Console.Clear();
+            RenderMaze();
+            RenderScoreAndLivesLabels();
         }
 
         public void Render()
         {
-            state.Update();
+            game.Update();
             RenderMaze();
-            RenderScoreAndLives();
+            if (game.State == GameState.Won)
+            {
+                renderer.SwitchScreens(new IntroScreen(renderer));
+            }
         }
 
         public void HandleInput(ConsoleKey key)
         {
-            state.GetInput(key);
+            game.GetInput(key);
         }
 
         private void RenderMaze()
@@ -46,29 +70,39 @@ namespace PacMan.GameView.Screens
             }
         }
 
-        private void RenderScoreAndLives()
+        private void RenderScore(int score)
         {
-            Console.SetCursorPosition(screenWidth - 7, 6);
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.Write("Score:");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.SetCursorPosition(screenWidth - 7, 7);
-            Console.Write($"{state.Score:d6}");
+            Console.SetCursorPosition(infoPosX, scoreInfoPosY + 1);
+            Console.Write($"{score:d6}");
+        }
 
-            Console.SetCursorPosition(screenWidth - 7, screenHeight - 7);
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.Write("Lives:");
-            Console.SetCursorPosition(screenWidth - 7, screenHeight - 6);
+        private void RenderLives(int lives)
+        {
+            Console.SetCursorPosition(infoPosX, livesInfoPosY + 1);
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            for (int i = 0; i < state.Lives; i++)
+            for (int i = 0; i < lives; i++)
             {
                 Console.Write("C ");
             }
         }
 
+        private void RenderScoreAndLivesLabels()
+        {
+            Console.SetCursorPosition(infoPosX, scoreInfoPosY);
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write("Score:");
+            RenderScore(game.Score);
+
+            Console.SetCursorPosition(infoPosX, livesInfoPosY);
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write("Lives:");
+            RenderLives(game.Lives);
+        }
+
         private void ChangeWindowSize()
         {
-            screenWidth = maze.Width + screenScoreOffset;
+            screenWidth = maze.Width + screenInfoOffset;
             screenHeight = maze.Height;
 
             if (OperatingSystem.IsWindows())
@@ -77,6 +111,5 @@ namespace PacMan.GameView.Screens
                 Console.SetBufferSize(screenWidth, screenHeight);
             }
         }
-
     }
 }
