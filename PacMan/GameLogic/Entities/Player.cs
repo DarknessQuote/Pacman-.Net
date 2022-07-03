@@ -33,7 +33,7 @@ namespace PacMan.Entities
                 return;
             }
             ChangePlayerCoordinates(nextCell);
-            CheckForDots();
+            ProcessCell();
         }
 
         public void ChangeDirection(ConsoleKey input)
@@ -72,22 +72,20 @@ namespace PacMan.Entities
             maze[player.CoordX, player.CoordY].AddTile(player);
         }
 
-        private void CheckForDots()
+        private void ProcessCell()
         {
-            switch (maze[player.CoordX, player.CoordY].GetUnderneathTile())
+            foreach (Tile tile in maze[player.CoordX, player.CoordY])
             {
-                case (Dot dot):
-                    if (dot.IsEaten) break;
+                if (tile is Dot dot && !dot.IsEaten)
+                {
                     dot.Eat();
                     OnDotEaten?.Invoke();
-                    break;                    
-                case (PowerPellet pp):
-                    if (pp.IsEaten) break;
+                }
+                if (tile is PowerPellet pp && !pp.IsEaten)
+                {
                     pp.Eat();
                     OnPowerPelletEaten?.Invoke();
-                    break;
-                default:
-                    break;
+                }
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using PacMan.Tiles;
 
 namespace PacMan.GameLogic
 {
-    class Cell
+    class Cell : IEnumerable<Tile>
     {
         private LinkedList<Tile> tilesInCell;
         public int CellX { get; private set; }
@@ -39,5 +40,8 @@ namespace PacMan.GameLogic
         {
             tilesInCell.RemoveLast();
         }
+
+        IEnumerator<Tile> IEnumerable<Tile>.GetEnumerator() => tilesInCell.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => tilesInCell.GetEnumerator();
     }
 }
