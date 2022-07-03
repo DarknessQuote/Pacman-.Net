@@ -7,6 +7,7 @@ namespace PacMan.GameLogic
     {
         private readonly Maze maze;
         private readonly Player player;
+        private readonly Entity[] entities;
 
         public CurrentState State { get; private set; }
         public int Score { get; private set; }
@@ -17,18 +18,25 @@ namespace PacMan.GameLogic
         public GameState(Maze maze, int score = 0, int lives = 3)
         {
             this.maze = maze;
-            player = new Player(maze, maze.PacmanStartingCoords);
+            entities = new Entity[]
+            {
+                player = new Player(maze, maze.PacmanStartingCoords)
+            };
             Score = score;
             Lives = lives;
             State = CurrentState.Playing;
 
-            player.OnDotEaten += () => AddScore(10);
-            player.OnPowerPelletEaten += () => AddScore(30);
+            Player.OnDotEaten += () => AddScore(10);
+            Player.OnPowerPelletEaten += () => AddScore(30);
         }
 
         public void Update()
         {
-            player.Move();
+            foreach (var entity in entities)
+            {
+                entity.Move();
+            }
+
             if (maze.DotCount == 0)
             {
                 State = CurrentState.Won;

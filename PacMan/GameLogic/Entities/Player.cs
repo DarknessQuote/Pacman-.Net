@@ -8,8 +8,8 @@ namespace PacMan.GameLogic.Entities
     {
         private Direction ChangedDirection { get; set; }
 
-        public event Action OnDotEaten;
-        public event Action OnPowerPelletEaten;
+        public static event Action OnDotEaten;
+        public static event Action OnPowerPelletEaten;
 
         public Player(Maze maze, (int, int) startingCoords)
             : base(maze, startingCoords) { }
