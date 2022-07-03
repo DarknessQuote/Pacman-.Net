@@ -10,8 +10,10 @@ namespace PacMan.Entities
         private readonly Maze maze;        
 
         public Direction PacmanDirection { get; private set; }
+        private Direction ChangedDirection { get; set; }
         private (int X, int Y) StartingCoords { get; set; }
         private Cell CurrentCell { get => maze[player.CoordX, player.CoordY]; }
+        private Cell NextCell { get => GetNextCell(PacmanDirection, 1); }
 
         public event Action OnDotEaten;
         public event Action OnPowerPelletEaten;
@@ -27,20 +29,27 @@ namespace PacMan.Entities
 
         public void Move()
         {
-            if (PacmanDirection == Direction.NONE) return;
-            Cell nextCell = GetNextCell(PacmanDirection, 1);
-            if (nextCell.IsWall)
-            {
-                PacmanDirection = Direction.NONE;
-                return;
-            }
-            ChangePlayerCoordinates(nextCell);
+            GetDirection();
+            MoveToNextCell(NextCell);
             ProcessCell();
+        }
+
+        private void GetDirection()
+        {
+            if (PacmanDirection == ChangedDirection || GetNextCell(ChangedDirection, 1).IsWall)
+            {
+                if (NextCell.IsWall)
+                {
+                    PacmanDirection = Direction.NONE;
+                }
+                return;
+            }            
+            PacmanDirection = ChangedDirection;
         }
 
         public void ChangeDirection(ConsoleKey input)
         {
-            Direction directionChanged = input switch
+            ChangedDirection = input switch
             {
                 ConsoleKey.W => Direction.UP,
                 ConsoleKey.A => Direction.LEFT,
@@ -48,9 +57,6 @@ namespace PacMan.Entities
                 ConsoleKey.S => Direction.DOWN,
                 _ => PacmanDirection
             };
-
-            if (GetNextCell(directionChanged, 1).IsWall) return;
-            PacmanDirection = directionChanged;
         }
 
         private Cell GetNextCell(Direction direction, int distance)
@@ -61,12 +67,11 @@ namespace PacMan.Entities
                 Direction.RIGHT => maze[player.CoordX + distance, player.CoordY],
                 Direction.LEFT => maze[player.CoordX - distance, player.CoordY],
                 Direction.DOWN => maze[player.CoordX, player.CoordY + distance],
-                Direction.NONE => CurrentCell,
-                _ => null
+                _ => CurrentCell
             };
         }
 
-        private void ChangePlayerCoordinates(Cell nextCell)
+        private void MoveToNextCell(Cell nextCell)
         {
             CurrentCell.RemoveTile(player);
             nextCell.AddTile(player);
