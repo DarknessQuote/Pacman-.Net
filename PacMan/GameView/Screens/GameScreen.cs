@@ -64,8 +64,8 @@ namespace PacMan.GameView.Screens
             foreach (Cell cell in maze)
             {
                 Console.SetCursorPosition(cell.CellX, cell.CellY);
-                Console.ForegroundColor = cell.GetTopTile().TileColor;
-                Console.Write(cell.GetTopTile().TileTexture);
+                Console.ForegroundColor = cell.GetTopLayerTile().TileColor;
+                Console.Write(cell.GetTopLayerTile().TileTexture);
             }
             Console.ResetColor();
         }

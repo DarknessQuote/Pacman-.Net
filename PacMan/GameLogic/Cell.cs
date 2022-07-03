@@ -13,6 +13,7 @@ namespace PacMan.GameLogic
         private readonly LinkedList<Tile> tilesInCell;
         public int CellX { get; private set; }
         public int CellY { get; private set; }
+        public bool IsWall { get => GetTopLayerTile() is Wall; }
 
         public Cell(int x, int y)
         {
@@ -23,24 +24,19 @@ namespace PacMan.GameLogic
             CellY = y;
         }
 
-        public Tile GetTopTile()
+        public Tile GetTopLayerTile()
         {
-            return tilesInCell.Last.Value;
-        }
-
-        public Tile GetUnderneathTile()
-        {
-            return tilesInCell.Last.Previous.Value;
+            return tilesInCell.First.Value;
         }
 
         public void AddTile(Tile tile)
         {
-            tilesInCell.AddLast(tile);
+            tilesInCell.AddFirst(tile);
         }
 
-        public void RemoveTile()
+        public void RemoveTile(Tile tile)
         {
-            tilesInCell.RemoveLast();
+            tilesInCell.Remove(tile);
         }
 
         IEnumerator<Tile> IEnumerable<Tile>.GetEnumerator() => tilesInCell.GetEnumerator();

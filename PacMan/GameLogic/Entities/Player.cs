@@ -20,7 +20,7 @@ namespace PacMan.Entities
         {
             this.maze = maze;
             StartingCoords = maze.PacmanStartingCoords;
-            player = maze[StartingCoords.X, StartingCoords.Y].GetTopTile();
+            player = maze[StartingCoords.X, StartingCoords.Y].GetTopLayerTile();
 
             PacmanDirection = Direction.NONE;
         }
@@ -29,7 +29,7 @@ namespace PacMan.Entities
         {
             if (PacmanDirection == Direction.NONE) return;
             Cell nextCell = GetNextCell(PacmanDirection, 1);
-            if (nextCell.GetTopTile() is Wall)
+            if (nextCell.IsWall)
             {
                 PacmanDirection = Direction.NONE;
                 return;
@@ -49,7 +49,7 @@ namespace PacMan.Entities
                 _ => PacmanDirection
             };
 
-            if (GetNextCell(directionChanged, 1).GetTopTile() is Wall) return;
+            if (GetNextCell(directionChanged, 1).IsWall) return;
             PacmanDirection = directionChanged;
         }
 
@@ -68,7 +68,7 @@ namespace PacMan.Entities
 
         private void ChangePlayerCoordinates(Cell nextCell)
         {
-            CurrentCell.RemoveTile();
+            CurrentCell.RemoveTile(player);
             nextCell.AddTile(player);
             player.CoordX = nextCell.CellX;
             player.CoordY = nextCell.CellY;
