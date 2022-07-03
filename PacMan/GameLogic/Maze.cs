@@ -7,7 +7,7 @@ namespace PacMan.GameLogic
     {
         private readonly Cell[,] map;
 
-        public (int X, int Y) PlayerStartingCoords { get; private set; }
+        public (int X, int Y) PacmanStartingCoords { get; private set; }
         public int DotCount { get; private set; }
         public int Width { get => map.GetLength(0); }
         public int Height { get => map.GetLength(1); }        
@@ -38,7 +38,7 @@ namespace PacMan.GameLogic
 
         public Maze()
         {
-            Pacman.PacmanTileCreated += (pacmanTile) => PlayerStartingCoords = (pacmanTile.CoordX, pacmanTile.CoordY);
+            Pacman.PacmanTileCreated += (pacmanTile) => PacmanStartingCoords = (pacmanTile.CoordX, pacmanTile.CoordY);
             EatableTile.EatableTileCreated += () => DotCount++;
             EatableTile.EatableTileEaten += () => DotCount--;
 
@@ -54,7 +54,6 @@ namespace PacMan.GameLogic
                 for (int x = 0; x < Width; x++)
                 {
                     map[x, y] = new Cell(x, y);
-                    map[x, y].AddTile(new EmptyTile(x, y));
                     var tile = Tile.CreateTile(layout[x, y], x, y);
                     map[x, y].AddTile(tile);
                 }

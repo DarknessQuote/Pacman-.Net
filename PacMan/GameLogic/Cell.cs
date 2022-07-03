@@ -10,13 +10,15 @@ namespace PacMan.GameLogic
 {
     class Cell : IEnumerable<Tile>
     {
-        private LinkedList<Tile> tilesInCell;
+        private readonly LinkedList<Tile> tilesInCell;
         public int CellX { get; private set; }
         public int CellY { get; private set; }
 
         public Cell(int x, int y)
         {
             tilesInCell = new LinkedList<Tile>();
+            AddTile(new EmptyTile(x, y));
+
             CellX = x;
             CellY = y;
         }

@@ -8,8 +8,10 @@ namespace PacMan.Entities
     {
         private readonly Tile player;
         private readonly Maze maze;        
-        private Direction playerDirection;
+
+        public Direction PacmanDirection { get; private set; }
         private (int X, int Y) StartingCoords { get; set; }
+        private Cell CurrentCell { get => maze[player.CoordX, player.CoordY]; }
 
         public event Action OnDotEaten;
         public event Action OnPowerPelletEaten;
@@ -17,19 +19,19 @@ namespace PacMan.Entities
         public Player(Maze maze)
         {
             this.maze = maze;
-            StartingCoords = maze.PlayerStartingCoords;
+            StartingCoords = maze.PacmanStartingCoords;
             player = maze[StartingCoords.X, StartingCoords.Y].GetTopTile();
 
-            playerDirection = Direction.NONE;
+            PacmanDirection = Direction.NONE;
         }
 
         public void Move()
         {
-            if (playerDirection == Direction.NONE) return;
-            Cell nextCell = GetNextCell(playerDirection);
+            if (PacmanDirection == Direction.NONE) return;
+            Cell nextCell = GetNextCell(PacmanDirection, 1);
             if (nextCell.GetTopTile() is Wall)
             {
-                playerDirection = Direction.NONE;
+                PacmanDirection = Direction.NONE;
                 return;
             }
             ChangePlayerCoordinates(nextCell);
@@ -44,37 +46,37 @@ namespace PacMan.Entities
                 ConsoleKey.A => Direction.LEFT,
                 ConsoleKey.D => Direction.RIGHT,
                 ConsoleKey.S => Direction.DOWN,
-                _ => playerDirection
+                _ => PacmanDirection
             };
 
-            if (GetNextCell(directionChanged).GetTopTile() is Wall) return;
-            playerDirection = directionChanged;
+            if (GetNextCell(directionChanged, 1).GetTopTile() is Wall) return;
+            PacmanDirection = directionChanged;
         }
 
-        private Cell GetNextCell(Direction direction)
+        private Cell GetNextCell(Direction direction, int distance)
         {
             return direction switch
             {
-                Direction.UP => maze[player.CoordX, player.CoordY - 1],
-                Direction.RIGHT => maze[player.CoordX + 1, player.CoordY],
-                Direction.LEFT => maze[player.CoordX - 1, player.CoordY],
-                Direction.DOWN => maze[player.CoordX, player.CoordY + 1],
-                Direction.NONE => maze[player.CoordX, player.CoordY],
+                Direction.UP => maze[player.CoordX, player.CoordY - distance],
+                Direction.RIGHT => maze[player.CoordX + distance, player.CoordY],
+                Direction.LEFT => maze[player.CoordX - distance, player.CoordY],
+                Direction.DOWN => maze[player.CoordX, player.CoordY + distance],
+                Direction.NONE => CurrentCell,
                 _ => null
             };
         }
 
         private void ChangePlayerCoordinates(Cell nextCell)
         {
-            maze[player.CoordX, player.CoordY].RemoveTile();
+            CurrentCell.RemoveTile();
+            nextCell.AddTile(player);
             player.CoordX = nextCell.CellX;
             player.CoordY = nextCell.CellY;
-            maze[player.CoordX, player.CoordY].AddTile(player);
         }
 
         private void ProcessCell()
         {
-            foreach (Tile tile in maze[player.CoordX, player.CoordY])
+            foreach (Tile tile in CurrentCell)
             {
                 if (tile is Dot dot && !dot.IsEaten)
                 {
