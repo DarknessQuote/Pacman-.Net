@@ -1,4 +1,4 @@
-﻿namespace PacMan.Entities
+﻿namespace PacMan.GameLogic.Entities
 {
     enum Direction
     {

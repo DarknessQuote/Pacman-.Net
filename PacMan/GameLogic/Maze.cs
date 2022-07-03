@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using PacMan.Tiles;
+using PacMan.GameLogic.Tiles;
 
 namespace PacMan.GameLogic
 {

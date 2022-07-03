@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PacMan.Tiles
+namespace PacMan.GameLogic.Tiles
 {
     abstract class Tile
     {

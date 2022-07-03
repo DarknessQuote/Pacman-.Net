@@ -1,7 +1,7 @@
 ﻿using System;
 using GameContent;
 
-namespace PacMan.Tiles
+namespace PacMan.GameLogic.Tiles
 {
     abstract class EatableTile : Tile
     {

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PacMan.Tiles;
+using PacMan.GameLogic.Tiles;
 
 namespace PacMan.GameLogic
 {

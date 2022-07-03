@@ -1,5 +1,5 @@
 ﻿using System;
-using PacMan.Entities;
+using PacMan.GameLogic.Entities;
 
 namespace PacMan.GameLogic
 {
@@ -17,7 +17,7 @@ namespace PacMan.GameLogic
         public GameState(Maze maze, int score = 0, int lives = 3)
         {
             this.maze = maze;
-            player = new Player(maze);
+            player = new Player(maze, maze.PacmanStartingCoords);
             Score = score;
             Lives = lives;
             State = CurrentState.Playing;
