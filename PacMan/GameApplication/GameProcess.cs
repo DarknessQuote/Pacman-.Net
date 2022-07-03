@@ -33,10 +33,10 @@ namespace PacMan.GameApplication
                 renderer.Render();
 
                 sw.Stop();
-                var elapsed = sw.ElapsedMilliseconds;
+                int elapsed = (int)sw.ElapsedMilliseconds;
                 sw.Reset();
 
-                int target = (int)((elapsed > frameRate) ? 0 : frameRate - elapsed);
+                int target = (elapsed > frameRate) ? 0 : frameRate - elapsed;
                 Thread.Sleep(target);
             }
         }
