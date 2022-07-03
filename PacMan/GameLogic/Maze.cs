@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections;
 using PacMan.Tiles;
 
 namespace PacMan.GameLogic
 {
-    class Maze
+    class Maze : IEnumerable
     {
         private readonly Cell[,] map;
 
@@ -59,5 +60,7 @@ namespace PacMan.GameLogic
                 }
             }
         }
+
+        IEnumerator IEnumerable.GetEnumerator() => map.GetEnumerator();
     }
 }

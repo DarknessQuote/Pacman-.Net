@@ -41,7 +41,7 @@ namespace PacMan.GameApplication
             }
         }
 
-        private void InitializeOptions()
+        private static void InitializeOptions()
         {
             Console.Title = "PacMan";
             Console.CursorVisible = false;

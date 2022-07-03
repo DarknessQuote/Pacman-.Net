@@ -44,6 +44,7 @@ namespace PacMan.GameLogic
         }
 
         IEnumerator<Tile> IEnumerable<Tile>.GetEnumerator() => tilesInCell.GetEnumerator();
+
         IEnumerator IEnumerable.GetEnumerator() => tilesInCell.GetEnumerator();
     }
 }

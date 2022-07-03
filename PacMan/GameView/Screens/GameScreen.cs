@@ -61,14 +61,11 @@ namespace PacMan.GameView.Screens
 
         private void RenderMaze()
         {
-            for (int x = 0; x < maze.Width; x++)
+            foreach (Cell cell in maze)
             {
-                for (int y = 0; y < maze.Height; y++)
-                {
-                    Console.SetCursorPosition(x, y);
-                    Console.ForegroundColor = maze[x, y].GetTopTile().TileColor;
-                    Console.Write(maze[x, y].GetTopTile().TileTexture);
-                }
+                Console.SetCursorPosition(cell.CellX, cell.CellY);
+                Console.ForegroundColor = cell.GetTopTile().TileColor;
+                Console.Write(cell.GetTopTile().TileTexture);
             }
             Console.ResetColor();
         }
