@@ -32,36 +32,16 @@ namespace PacMan.GameLogic.Entities
            Pacman = pacman;
         }
 
-        protected override void GetDirection()
+        protected override Direction GetDirection()
         {
-            var availableDirections = CheckAllDirections();
+            List<Direction> availableDirections = GetAllAvailableDirections();
 
-
-            if (availableDirections.Count == 0)
+            return availableDirections.Count switch
             {
-                CurrentDirection = OppositeDirection;
-            }
-            if (availableDirections.Count == 1)
-            {
-                CurrentDirection = availableDirections[0];
-            }
-            if (availableDirections.Count >= 2)
-            {
-                double minimalDistance = CalculateDistance(GetNextCell(availableDirections[0], 1));
-                Direction bestDirection = availableDirections[0];
-
-                foreach (Direction direction in availableDirections)
-                {
-                    double distanceToTarget = CalculateDistance(GetNextCell(direction, 1));
-                    if (distanceToTarget < minimalDistance)
-                    {
-                        minimalDistance = distanceToTarget;
-                        bestDirection = direction;
-                    }
-                }
-
-                CurrentDirection = bestDirection;
-            }
+                0 => OppositeDirection,
+                1 => availableDirections[0],
+                _ => GetBestDirection(availableDirections)
+            };
         }
 
         protected override void ProcessCell()
@@ -69,7 +49,7 @@ namespace PacMan.GameLogic.Entities
 
         }
 
-        private List<Direction> CheckAllDirections()
+        private List<Direction> GetAllAvailableDirections()
         {
             var allDirections = new List<Direction>()
             {
@@ -82,21 +62,38 @@ namespace PacMan.GameLogic.Entities
 
             foreach (Direction direction in allDirections)
             {
-                if (direction == OppositeDirection || GetNextCell(direction, 1).IsWall)
+                if (direction == OppositeDirection || GetNextCell(direction).IsWall)
                 {
                     continue;
                 }
                 availableDirections.Add(direction);
             }
-
             return availableDirections;
         }
 
-        private double CalculateDistance(Cell cell)
+        private double CalculateDistanceToTarget(Cell cell)
         {
             double distanceX = cell.CellX - TargetCell.CellX;
             double distanceY = cell.CellY - TargetCell.CellY;
             return Math.Sqrt(distanceX * distanceX + distanceY * distanceY);
+        }
+
+        private Direction GetBestDirection(List<Direction> directions)
+        {
+            double minimalDistance = CalculateDistanceToTarget(GetNextCell(directions[0]));
+            Direction bestDirection = directions[0];
+
+            foreach (Direction direction in directions)
+            {
+                double distanceToTarget = CalculateDistanceToTarget(GetNextCell(direction));
+                if (distanceToTarget < minimalDistance)
+                {
+                    minimalDistance = distanceToTarget;
+                    bestDirection = direction;
+                }
+            }
+
+            return bestDirection;
         }
     }
 }

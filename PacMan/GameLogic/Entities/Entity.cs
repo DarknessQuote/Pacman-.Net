@@ -15,8 +15,8 @@ namespace PacMan.GameLogic.Entities
         private (int X, int Y) StartingCoords { get; set; }
         public Direction CurrentDirection { get; protected set; }
         public Cell CurrentCell { get => maze[controlledTile.CoordX, controlledTile.CoordY]; }
-        protected Cell NextCell { get => GetNextCell(CurrentDirection, 1); }
-
+        protected Cell NextCell { get => GetNextCell(CurrentDirection); }        
+        
         public Entity(Maze maze, (int X, int Y) startingCoords)
         {
             this.maze = maze;
@@ -27,12 +27,12 @@ namespace PacMan.GameLogic.Entities
 
         public void Move()
         {
-            GetDirection();
+            CurrentDirection = GetDirection();
             MoveToNextCell();
             ProcessCell();
         }
 
-        protected abstract void GetDirection();
+        protected abstract Direction GetDirection();
 
         private void MoveToNextCell()
         {
@@ -44,7 +44,7 @@ namespace PacMan.GameLogic.Entities
 
         protected abstract void ProcessCell();
 
-        protected Cell GetNextCell(Direction direction, int distance)
+        protected Cell GetNextCell(Direction direction, int distance = 1)
         {
             return direction switch
             {

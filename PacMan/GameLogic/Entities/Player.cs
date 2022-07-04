@@ -26,17 +26,17 @@ namespace PacMan.GameLogic.Entities
             };
         }
 
-        protected override void GetDirection()
+        protected override Direction GetDirection()
         {
-            if (CurrentDirection == ChangedDirection || GetNextCell(ChangedDirection, 1).IsWall)
+            if (CurrentDirection == ChangedDirection || GetNextCell(ChangedDirection).IsWall)
             {
                 if (NextCell.IsWall)
                 {
                     CurrentDirection = Direction.NONE;
                 }
-                return;
+                return CurrentDirection;
             }            
-            CurrentDirection = ChangedDirection;
+            return ChangedDirection;
         }
 
         protected override void ProcessCell()

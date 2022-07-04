@@ -52,6 +52,15 @@ namespace PacMan.GameView.Screens
             {
                 renderer.SwitchScreens(new IntroScreen(renderer));
             }
+
+            switch (game.State)
+            {
+                case (CurrentState.Playing):
+                    return;
+                case (CurrentState.Won):
+                    renderer.SwitchScreens(new IntroScreen(renderer));
+                    break;
+            }
         }
 
         public void HandleInput(ConsoleKey key)

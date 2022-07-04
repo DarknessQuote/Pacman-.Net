@@ -28,7 +28,7 @@ namespace PacMan.GameLogic
             State = CurrentState.Playing;
 
             Player.OnDotEaten += () => AddScore(10);
-            Player.OnPowerPelletEaten += () => AddScore(30);
+            Player.OnPowerPelletEaten += () => AddScore(50);
         }
 
         public void Update()
