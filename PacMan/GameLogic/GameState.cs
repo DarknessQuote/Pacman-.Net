@@ -29,6 +29,7 @@ namespace PacMan.GameLogic
 
             Player.OnDotEaten += () => AddScore(10);
             Player.OnPowerPelletEaten += () => AddScore(50);
+            Entity.OnGhostTouch += () => State = CurrentState.Lost;
         }
 
         public void Update()
@@ -38,7 +39,7 @@ namespace PacMan.GameLogic
                 entity.Move();
             }
 
-            if (maze.DotCount == 0)
+            if (maze.DotCount == 0 && State != CurrentState.Lost)
             {
                 State = CurrentState.Won;
             }

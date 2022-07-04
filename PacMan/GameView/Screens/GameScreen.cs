@@ -58,6 +58,7 @@ namespace PacMan.GameView.Screens
                 case (CurrentState.Playing):
                     return;
                 case (CurrentState.Won):
+                case (CurrentState.Lost):
                     renderer.SwitchScreens(new IntroScreen(renderer));
                     break;
             }

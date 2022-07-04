@@ -53,6 +53,10 @@ namespace PacMan.GameLogic.Entities
                     pp.Eat();
                     OnPowerPelletEaten?.Invoke();
                 }
+                if (tile is Blinky)
+                {
+                    ProcessGhostTouch(tile.TileTexture);
+                }
             }
         }
     }

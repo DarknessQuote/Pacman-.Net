@@ -9,7 +9,7 @@ namespace PacMan.GameLogic.Entities
 {
     class Ghost : Entity
     {
-        private Player Pacman { get; set; }
+        public Player Pacman { get; private set; }
         private Cell TargetCell { get => Pacman.CurrentCell; }
         private Direction OppositeDirection
         {
@@ -46,7 +46,13 @@ namespace PacMan.GameLogic.Entities
 
         protected override void ProcessCell()
         {
-
+            foreach (Tile tile in CurrentCell)
+            {
+                if (tile is Pacman)
+                {
+                    ProcessGhostTouch(controlledTile.TileTexture);
+                }
+            }
         }
 
         private List<Direction> GetAllAvailableDirections()

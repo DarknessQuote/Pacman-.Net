@@ -12,6 +12,8 @@ namespace PacMan.GameLogic.Entities
         protected Tile controlledTile;
         protected Maze maze;
 
+        public static event Action OnGhostTouch;
+
         private (int X, int Y) StartingCoords { get; set; }
         public Direction CurrentDirection { get; protected set; }
         public Cell CurrentCell { get => maze[controlledTile.CoordX, controlledTile.CoordY]; }
@@ -54,6 +56,11 @@ namespace PacMan.GameLogic.Entities
                 Direction.DOWN => maze[controlledTile.CoordX, controlledTile.CoordY + distance],
                 _ => CurrentCell
             };
+        }
+
+        protected void ProcessGhostTouch(char ghost)
+        {
+            OnGhostTouch?.Invoke();
         }
     }
 }
