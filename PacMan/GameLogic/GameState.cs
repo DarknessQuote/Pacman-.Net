@@ -20,7 +20,8 @@ namespace PacMan.GameLogic
             this.maze = maze;
             entities = new Entity[]
             {
-                player = new Player(maze, maze.PacmanStartingCoords)
+                player = new Player(maze, maze.PacmanStartingCoords),
+                new Ghost(maze, maze.BlinkyStartingCoords, player)
             };
             Score = score;
             Lives = lives;

@@ -17,6 +17,6 @@ namespace GameContent
         public const ConsoleColor DOT_COLOR = ConsoleColor.Yellow;
         public const ConsoleColor POWER_PELLET_COLOR = ConsoleColor.Yellow;
         public const ConsoleColor PACMAN_COLOR = ConsoleColor.DarkYellow;
-        public const ConsoleColor GHOST_COLOR = ConsoleColor.Red;
+        public const ConsoleColor BLINKY_COLOR = ConsoleColor.Red;
     }
 }

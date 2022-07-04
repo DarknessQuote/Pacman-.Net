@@ -22,6 +22,7 @@ namespace PacMan.GameLogic.Tiles
             return tile switch
             {
                 'c' => new Pacman(x, y),
+                'B' => new Blinky(x, y),
                 '#' => new Wall(x, y),
                 '·' => new Dot(x, y),
                 'o' => new PowerPellet(x, y),

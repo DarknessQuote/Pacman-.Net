@@ -14,7 +14,7 @@ namespace PacMan.GameLogic.Entities
 
         private (int X, int Y) StartingCoords { get; set; }
         public Direction CurrentDirection { get; protected set; }
-        protected Cell CurrentCell { get => maze[controlledTile.CoordX, controlledTile.CoordY]; }
+        public Cell CurrentCell { get => maze[controlledTile.CoordX, controlledTile.CoordY]; }
         protected Cell NextCell { get => GetNextCell(CurrentDirection, 1); }
 
         public Entity(Maze maze, (int X, int Y) startingCoords)
