@@ -10,6 +10,7 @@ namespace PacMan.GameLogic.Entities
     class Ghost : Entity
     {
         private GhostBehaviour behaviour;
+        private int switchStateCounter = 0;
 
         public GhostState State { get; private set; } = GhostState.Scatter;
         public Direction OppositeDirection
@@ -49,11 +50,39 @@ namespace PacMan.GameLogic.Entities
         }
 
 
-        protected override Direction GetDirection() => behaviour.GetDirection();
+        public void SwitchState(GhostState gState)
+        {
+            State = gState;
+            CurrentDirection = OppositeDirection;
+            switchStateCounter = 0;
+        }
+
+        protected override Direction GetDirection()
+        {
+            UpdateSwitchCounter();
+            return behaviour.GetDirection();
+        }
 
         protected override void ProcessCell()
         {
 
+        }
+
+        private void UpdateSwitchCounter()
+        {
+            if (State == GhostState.Scatter && switchStateCounter >= 50)
+            {
+                SwitchState(GhostState.Chase);
+                return;
+            }
+            else if ((State == GhostState.Chase && switchStateCounter >= 100) ||
+                     (State == GhostState.Frightened && switchStateCounter >= 50))
+            {
+                SwitchState(GhostState.Scatter);
+                return;
+            }
+
+            switchStateCounter++;
         }
     }
 }

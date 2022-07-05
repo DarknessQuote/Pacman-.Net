@@ -23,8 +23,7 @@ namespace PacMan.GameLogic.Entities
             controlledTile = maze[startingCoords.X, startingCoords.Y].GetTopLayerTile();
         }
 
-        public void Update
-            ()
+        public void Update()
         {
             CurrentDirection = GetDirection();
             MoveToCell(NextCell);
