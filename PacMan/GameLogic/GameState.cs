@@ -21,7 +21,7 @@ namespace PacMan.GameLogic
             entities = new Entity[]
             {
                 player = new Player(maze, maze.PacmanStartingCoords),
-                new Ghost(maze, maze.BlinkyStartingCoords, player)
+                Ghost.GetGhost("Blinky", maze, player)
             };
             Score = score;
             Lives = lives;
@@ -36,7 +36,7 @@ namespace PacMan.GameLogic
         {
             foreach (var entity in entities)
             {
-                entity.Move();
+                entity.Update();
             }
 
             if (maze.DotCount == 0 && State != CurrentState.Lost)

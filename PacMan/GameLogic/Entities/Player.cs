@@ -55,7 +55,7 @@ namespace PacMan.GameLogic.Entities
                 }
                 if (tile is Blinky)
                 {
-                    ProcessGhostTouch(tile.TileTexture);
+                    ProcessGhostTouch();
                 }
             }
         }

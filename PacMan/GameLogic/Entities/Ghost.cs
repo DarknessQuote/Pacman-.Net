@@ -9,8 +9,10 @@ namespace PacMan.GameLogic.Entities
 {
     class Ghost : Entity
     {
+        public GhostState State { get; private set; }
+        private GhostBehaviour Behaviour { get; set; }
         public Player Pacman { get; private set; }
-        private Cell TargetCell { get => Pacman.CurrentCell; }
+        private Cell TargetCell { get => Behaviour.GetTargetCell(); }
         private Direction OppositeDirection
         {
             get
@@ -26,10 +28,22 @@ namespace PacMan.GameLogic.Entities
             }
         }
 
-        public Ghost(Maze maze, (int X, int Y) startingCoords, Player pacman)
+        public static Ghost GetGhost(string name, Maze maze, Player pacman)
+        {
+            return name switch
+            {
+                "Blinky" => new Ghost(new RedGhostBehaviour(), maze, maze.BlinkyStartingCoords, pacman),
+                _ => throw new Exception("Invalid ghost name")
+            };
+        }
+
+        private Ghost(GhostBehaviour behaviour, Maze maze, (int X, int Y) startingCoords, Player pacman)
             : base (maze, startingCoords)
         {
-           Pacman = pacman;
+            Behaviour = behaviour;
+            behaviour.HookBehaviourToGhost(this);
+            Pacman = pacman;
+            State = GhostState.Scatter;
         }
 
         protected override Direction GetDirection()
@@ -50,7 +64,7 @@ namespace PacMan.GameLogic.Entities
             {
                 if (tile is Pacman)
                 {
-                    ProcessGhostTouch(controlledTile.TileTexture);
+                    ProcessGhostTouch();
                 }
             }
         }

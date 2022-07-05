@@ -10,38 +10,45 @@ namespace PacMan.GameLogic.Entities
     abstract class Entity
     {
         protected Tile controlledTile;
-        protected Maze maze;
 
         public static event Action OnGhostTouch;
 
+        public Maze Maze { get; private set; }
         private (int X, int Y) StartingCoords { get; set; }
         public Direction CurrentDirection { get; protected set; }
-        public Cell CurrentCell { get => maze[controlledTile.CoordX, controlledTile.CoordY]; }
+        public Cell CurrentCell { get => Maze[controlledTile.CoordX, controlledTile.CoordY]; }
         protected Cell NextCell { get => GetNextCell(CurrentDirection); }        
         
         public Entity(Maze maze, (int X, int Y) startingCoords)
         {
-            this.maze = maze;
+            Maze = maze;
             StartingCoords = startingCoords;
             controlledTile = maze[StartingCoords.X, StartingCoords.Y].GetTopLayerTile();
             CurrentDirection = Direction.NONE;
         }
 
-        public void Move()
+        public void Update
+            ()
         {
             CurrentDirection = GetDirection();
-            MoveToNextCell();
+            MoveToCell(NextCell);
             ProcessCell();
+        }
+
+        public void ReturnToStartingCoords()
+        {
+            MoveToCell(Maze[StartingCoords.X, StartingCoords.Y]);
+            CurrentDirection = Direction.NONE;
         }
 
         protected abstract Direction GetDirection();
 
-        private void MoveToNextCell()
+        private void MoveToCell(Cell cell)
         {
             CurrentCell.RemoveTile(controlledTile);
-            NextCell.AddTile(controlledTile);
-            controlledTile.CoordX = NextCell.CellX;
-            controlledTile.CoordY = NextCell.CellY;
+            cell.AddTile(controlledTile);
+            controlledTile.CoordX = cell.CellX;
+            controlledTile.CoordY = cell.CellY;
         }
 
         protected abstract void ProcessCell();
@@ -50,15 +57,15 @@ namespace PacMan.GameLogic.Entities
         {
             return direction switch
             {
-                Direction.UP => maze[controlledTile.CoordX, controlledTile.CoordY - distance],
-                Direction.RIGHT => maze[controlledTile.CoordX + distance, controlledTile.CoordY],
-                Direction.LEFT => maze[controlledTile.CoordX - distance, controlledTile.CoordY],
-                Direction.DOWN => maze[controlledTile.CoordX, controlledTile.CoordY + distance],
+                Direction.UP => Maze[controlledTile.CoordX, controlledTile.CoordY - distance],
+                Direction.RIGHT => Maze[controlledTile.CoordX + distance, controlledTile.CoordY],
+                Direction.LEFT => Maze[controlledTile.CoordX - distance, controlledTile.CoordY],
+                Direction.DOWN => Maze[controlledTile.CoordX, controlledTile.CoordY + distance],
                 _ => CurrentCell
             };
         }
 
-        protected void ProcessGhostTouch(char ghost)
+        protected void ProcessGhostTouch()
         {
             OnGhostTouch?.Invoke();
         }
