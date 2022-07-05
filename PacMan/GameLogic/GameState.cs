@@ -9,7 +9,7 @@ namespace PacMan.GameLogic
         private readonly Player player;
         private readonly Entity[] entities;
 
-        public CurrentState State { get; private set; }
+        public CurrentState State { get; private set; } = CurrentState.Playing;
         public int Score { get; private set; }
         public int Lives { get; private set; }
 
@@ -28,7 +28,6 @@ namespace PacMan.GameLogic
             };
             Score = score;
             Lives = lives;
-            State = CurrentState.Playing;
 
             Player.OnDotEaten += () => AddScore(10);
             Player.OnPowerPelletEaten += () => AddScore(50);

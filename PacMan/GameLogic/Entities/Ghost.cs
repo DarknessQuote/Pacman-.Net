@@ -1,4 +1,5 @@
 ﻿using System;
+using GameContent;
 using PacMan.GameLogic.Entities.GhostAi;
 
 namespace PacMan.GameLogic.Entities
@@ -6,7 +7,8 @@ namespace PacMan.GameLogic.Entities
     class Ghost : Entity
     {
         private GhostBehaviour behaviour;
-        private int switchStateCounter = 0;
+        private readonly ConsoleColor mainColor;
+        private int stateSwitchCounter = 0;
 
         public GhostState State { get; private set; } = GhostState.Scatter;
         public Direction OppositeDirection
@@ -55,19 +57,32 @@ namespace PacMan.GameLogic.Entities
             : base (maze, startingCoords)
         {
             PacmanTarget = pacman;
+            mainColor = controlledTile.TileColor;
+            Player.OnPowerPelletEaten += () => SwitchState(GhostState.Frightened);
         }
 
 
         public void SwitchState(GhostState gState)
         {
+            if (gState == GhostState.Frightened)
+            {
+                controlledTile.TileTexture = Constants.SCARED_GHOST_TILE;
+                controlledTile.TileColor = Constants.SCARED_GHOST_COLOR;
+            }
+            else
+            {
+                controlledTile.TileTexture = Constants.GHOST_TILE;
+                controlledTile.TileColor = mainColor;
+            }
+
             State = gState;
             CurrentDirection = OppositeDirection;
-            switchStateCounter = 0;
+            stateSwitchCounter = 0;            
         }
 
         protected override Direction GetDirection()
         {
-            UpdateSwitchCounter();
+            UpdateStateSwitchCounter();
             return behaviour.GetDirection();
         }
 
@@ -76,21 +91,21 @@ namespace PacMan.GameLogic.Entities
 
         }
 
-        private void UpdateSwitchCounter()
+        private void UpdateStateSwitchCounter()
         {
-            if (State == GhostState.Scatter && switchStateCounter >= 50)
+            if (State == GhostState.Scatter && stateSwitchCounter >= 50)
             {
                 SwitchState(GhostState.Chase);
                 return;
             }
-            else if ((State == GhostState.Chase && switchStateCounter >= 100) ||
-                     (State == GhostState.Frightened && switchStateCounter >= 50))
+            else if ((State == GhostState.Chase && stateSwitchCounter >= 100) ||
+                     (State == GhostState.Frightened && stateSwitchCounter >= 50))
             {
                 SwitchState(GhostState.Scatter);
                 return;
             }
 
-            switchStateCounter++;
+            stateSwitchCounter++;
         }
     }
 }

@@ -20,6 +20,11 @@ namespace PacMan.GameLogic.Entities.GhostAi
         {
             List<Direction> availableDirections = GetAllAvailableDirections();
 
+            if (ghost.State == GhostState.Frightened)
+            {
+                return GetDirectionForFrightened(availableDirections);
+            }
+
             return availableDirections.Count switch
             {
                 0 => ghost.OppositeDirection,
@@ -40,6 +45,17 @@ namespace PacMan.GameLogic.Entities.GhostAi
             return allDirections
                 .Where(d => d != ghost.OppositeDirection && !(ghost.GetNextCell(d).IsWall))
                 .ToList();
+        }
+
+        private Direction GetDirectionForFrightened(List<Direction> directions)
+        {
+            if (!(ghost.NextCell.IsWall))
+            {
+                return ghost.CurrentDirection;
+            }
+
+            Random rand = new();
+            return directions[rand.Next(0, directions.Count - 1)];
         }
 
         protected static double CalculateDistanceBetweenCells(Cell firstCell, Cell secondCell)

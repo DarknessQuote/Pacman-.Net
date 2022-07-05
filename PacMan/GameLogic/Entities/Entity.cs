@@ -9,7 +9,7 @@ namespace PacMan.GameLogic.Entities
         protected (int X, int Y) StartingCoords { get; set; }
         public Direction CurrentDirection { get; protected set; } = Direction.NONE;
         public Cell CurrentCell { get => Maze[controlledTile.CoordX, controlledTile.CoordY]; }
-        protected Cell NextCell { get => GetNextCell(CurrentDirection); }
+        public Cell NextCell { get => GetNextCell(CurrentDirection); }
 
         public Entity(Maze maze, (int X, int Y) startingCoords)
         {

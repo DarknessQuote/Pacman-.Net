@@ -4,8 +4,8 @@ namespace PacMan.GameLogic.Tiles
 {
     abstract class Tile
     {
-        public char TileTexture { get; protected set; }
-        public ConsoleColor TileColor { get; protected set; }
+        public char TileTexture { get; set; }
+        public ConsoleColor TileColor { get; set; }
         public int CoordX { get; set; }
         public int CoordY { get; set; }
 
