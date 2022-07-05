@@ -10,8 +10,8 @@ namespace PacMan.GameView.Screens
     class GameScreen : IScreen
     {
         private readonly Renderer renderer;
-        private readonly Maze maze;
-        private readonly GameState game;
+        private Maze maze;
+        private GameState game;
 
         private int screenWidth;
         private int screenHeight;
@@ -27,11 +27,6 @@ namespace PacMan.GameView.Screens
             maze = new Maze();
             game = new GameState(maze);
 
-            game.ScoreAdded += RenderScore;
-        }
-
-        public void OnLoad()
-        {
             // These calculations ensure that the position of score and lives info will always be displayed
             // in the middle of the info box and on the same distance from top and bottom of the window.
             ChangeWindowSize();
@@ -39,6 +34,12 @@ namespace PacMan.GameView.Screens
             scoreInfoPosY = 6;
             livesInfoPosY = screenHeight - 8;
 
+            game.ScoreAdded += RenderScore;
+            game.LifeLost += RenderLives;
+        }
+
+        public void OnLoad()
+        {
             Console.Clear();
             RenderMaze();
             RenderScoreAndLivesLabels();
@@ -48,16 +49,16 @@ namespace PacMan.GameView.Screens
         {
             game.Update();
             RenderMaze();
-            if (game.State == CurrentState.Won)
-            {
-                renderer.SwitchScreens(new IntroScreen(renderer));
-            }
 
             switch (game.State)
             {
                 case (CurrentState.Playing):
                     return;
                 case (CurrentState.Won):
+                    maze = new Maze();
+                    game = new GameState(maze, game.Score, game.Lives);
+                    OnLoad();
+                    break;
                 case (CurrentState.Lost):
                     renderer.SwitchScreens(new IntroScreen(renderer));
                     break;
@@ -80,19 +81,24 @@ namespace PacMan.GameView.Screens
             Console.ResetColor();
         }
 
-        private void RenderScore(int score)
+        private void RenderScore()
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.SetCursorPosition(infoPosX, scoreInfoPosY + 1);
-            Console.Write($"{score:d6}");
+            Console.Write($"{game.Score:d6}");
         }
 
-        private void RenderLives(int lives)
+        private void RenderLives()
         {
             Console.SetCursorPosition(infoPosX, livesInfoPosY + 1);
+            Console.SetCursorPosition(infoPosX, livesInfoPosY + 1);
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            for (int i = 0; i < lives; i++)
+            for (int i = 1; i <= 3; i++)
             {
+                if (i > game.Lives)
+                {
+                    Console.ForegroundColor = ConsoleColor.Black;
+                }
                 Console.Write("C ");
             }
         }
@@ -102,12 +108,12 @@ namespace PacMan.GameView.Screens
             Console.SetCursorPosition(infoPosX, scoreInfoPosY);
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.Write("Score:");
-            RenderScore(game.Score);
+            RenderScore();
 
             Console.SetCursorPosition(infoPosX, livesInfoPosY);
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.Write("Lives:");
-            RenderLives(game.Lives);
+            RenderLives();
         }
 
         private void ChangeWindowSize()

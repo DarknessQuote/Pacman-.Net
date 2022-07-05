@@ -25,7 +25,7 @@ namespace PacMan.GameLogic.Entities
             ProcessCell();
         }
 
-        public void ReturnToStartingCoords()
+        public virtual void ReturnToStartingCoords()
         {
             MoveToCell(Maze[StartingCoords.X, StartingCoords.Y]);
             CurrentDirection = Direction.NONE;

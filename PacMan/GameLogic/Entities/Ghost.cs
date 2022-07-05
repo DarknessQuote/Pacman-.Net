@@ -61,7 +61,11 @@ namespace PacMan.GameLogic.Entities
             Player.OnPowerPelletEaten += () => SwitchState(GhostState.Frightened);
         }
 
-
+        public override void ReturnToStartingCoords()
+        {
+            base.ReturnToStartingCoords();
+            SwitchState(GhostState.Scatter);
+        }
         public void SwitchState(GhostState gState)
         {
             if (gState == GhostState.Frightened)
