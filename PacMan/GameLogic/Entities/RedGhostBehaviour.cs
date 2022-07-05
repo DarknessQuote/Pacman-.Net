@@ -8,8 +8,10 @@ namespace PacMan.GameLogic.Entities
 {
     class RedGhostBehaviour : GhostBehaviour
     {
-        protected override Cell GetChaseCell() => ghost.Pacman.CurrentCell;
+        protected override Cell ChaseCell { get => ghost.Pacman.CurrentCell; }
+        protected override Cell ScatterCell { get => ghost.Maze[ghost.Maze.Width - 1, 0]; }
 
-        protected override Cell GetScatterCell() => ghost.Maze[ghost.Maze.Width - 1, 0];
+        public RedGhostBehaviour(Ghost ghost)
+            : base(ghost) { }
     }
 }

@@ -10,21 +10,17 @@ namespace PacMan.GameLogic.Entities
     abstract class Entity
     {
         protected Tile controlledTile;
-
-        public static event Action OnGhostTouch;
-
         public Maze Maze { get; private set; }
-        private (int X, int Y) StartingCoords { get; set; }
-        public Direction CurrentDirection { get; protected set; }
+        protected (int X, int Y) StartingCoords { get; set; }
+        public Direction CurrentDirection { get; protected set; } = Direction.NONE;
         public Cell CurrentCell { get => Maze[controlledTile.CoordX, controlledTile.CoordY]; }
-        protected Cell NextCell { get => GetNextCell(CurrentDirection); }        
-        
+        protected Cell NextCell { get => GetNextCell(CurrentDirection); }
+
         public Entity(Maze maze, (int X, int Y) startingCoords)
         {
             Maze = maze;
             StartingCoords = startingCoords;
-            controlledTile = maze[StartingCoords.X, StartingCoords.Y].GetTopLayerTile();
-            CurrentDirection = Direction.NONE;
+            controlledTile = maze[startingCoords.X, startingCoords.Y].GetTopLayerTile();
         }
 
         public void Update
@@ -41,19 +37,7 @@ namespace PacMan.GameLogic.Entities
             CurrentDirection = Direction.NONE;
         }
 
-        protected abstract Direction GetDirection();
-
-        private void MoveToCell(Cell cell)
-        {
-            CurrentCell.RemoveTile(controlledTile);
-            cell.AddTile(controlledTile);
-            controlledTile.CoordX = cell.CellX;
-            controlledTile.CoordY = cell.CellY;
-        }
-
-        protected abstract void ProcessCell();
-
-        protected Cell GetNextCell(Direction direction, int distance = 1)
+        public Cell GetNextCell(Direction direction, int distance = 1)
         {
             return direction switch
             {
@@ -65,9 +49,16 @@ namespace PacMan.GameLogic.Entities
             };
         }
 
-        protected void ProcessGhostTouch()
+        protected abstract Direction GetDirection();
+
+        private void MoveToCell(Cell cell)
         {
-            OnGhostTouch?.Invoke();
+            CurrentCell.RemoveTile(controlledTile);
+            cell.AddTile(controlledTile);
+            controlledTile.CoordX = cell.CellX;
+            controlledTile.CoordY = cell.CellY;
         }
+
+        protected abstract void ProcessCell();
     }
 }

@@ -20,7 +20,7 @@ namespace PacMan.GameLogic
             this.maze = maze;
             entities = new Entity[]
             {
-                player = new Player(maze, maze.PacmanStartingCoords),
+                player = new Player(maze),
                 Ghost.GetGhost("Blinky", maze, player)
             };
             Score = score;
@@ -29,7 +29,6 @@ namespace PacMan.GameLogic
 
             Player.OnDotEaten += () => AddScore(10);
             Player.OnPowerPelletEaten += () => AddScore(50);
-            Entity.OnGhostTouch += () => State = CurrentState.Lost;
         }
 
         public void Update()

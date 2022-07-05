@@ -11,8 +11,8 @@ namespace PacMan.GameLogic.Entities
         public static event Action OnDotEaten;
         public static event Action OnPowerPelletEaten;
 
-        public Player(Maze maze, (int, int) startingCoords)
-            : base(maze, startingCoords) { }
+        public Player(Maze maze) 
+            : base(maze, maze.PacmanStartingCoords) { }
 
         public void ChangeDirection(ConsoleKey input)
         {
@@ -52,10 +52,6 @@ namespace PacMan.GameLogic.Entities
                 {
                     pp.Eat();
                     OnPowerPelletEaten?.Invoke();
-                }
-                if (tile is Blinky)
-                {
-                    ProcessGhostTouch();
                 }
             }
         }
