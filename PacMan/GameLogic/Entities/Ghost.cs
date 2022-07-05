@@ -66,15 +66,9 @@ namespace PacMan.GameLogic.Entities
             };
             var availableDirections = new List<Direction>();
 
-            foreach (Direction direction in allDirections)
-            {
-                if (direction == OppositeDirection || GetNextCell(direction).IsWall)
-                {
-                    continue;
-                }
-                availableDirections.Add(direction);
-            }
-            return availableDirections;
+            return allDirections
+                .Where(d => d != OppositeDirection && !(GetNextCell(d).IsWall))
+                .ToList();
         }
 
         private double CalculateDistanceToTarget(Cell cell)
