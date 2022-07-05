@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PacMan.GameLogic.Entities
+namespace PacMan.GameLogic.Entities.GhostAi
 {
     abstract class GhostBehaviour
     {
@@ -44,21 +42,21 @@ namespace PacMan.GameLogic.Entities
                 .ToList();
         }
 
-        private double CalculateDistanceToTarget(Cell cell)
+        protected static double CalculateDistanceBetweenCells(Cell firstCell, Cell secondCell)
         {
-            double distanceX = cell.CellX - TargetCell.CellX;
-            double distanceY = cell.CellY - TargetCell.CellY;
+            double distanceX = firstCell.CellX - secondCell.CellX;
+            double distanceY = firstCell.CellY - secondCell.CellY;
             return Math.Sqrt(distanceX * distanceX + distanceY * distanceY);
         }
 
         private Direction GetBestDirection(List<Direction> directions)
         {
-            double minimalDistance = CalculateDistanceToTarget(ghost.GetNextCell(directions[0]));
+            double minimalDistance = CalculateDistanceBetweenCells(ghost.GetNextCell(directions[0]), TargetCell);
             Direction bestDirection = directions[0];
 
             foreach (Direction direction in directions)
             {
-                double distanceToTarget = CalculateDistanceToTarget(ghost.GetNextCell(direction));
+                double distanceToTarget = CalculateDistanceBetweenCells(ghost.GetNextCell(direction), TargetCell);
                 if (distanceToTarget < minimalDistance)
                 {
                     minimalDistance = distanceToTarget;

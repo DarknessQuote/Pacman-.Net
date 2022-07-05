@@ -23,6 +23,9 @@ namespace PacMan.GameLogic.Tiles
             {
                 'c' => new Pacman(x, y),
                 'B' => new Blinky(x, y),
+                'P' => new Pinky(x, y),
+                'I' => new Inky(x, y),
+                'C' => new Clyde(x, y),
                 '#' => new Wall(x, y),
                 '·' => new Dot(x, y),
                 'o' => new PowerPellet(x, y),

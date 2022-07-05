@@ -1,5 +1,4 @@
 ﻿using System;
-using PacMan.GameLogic;
 using PacMan.GameLogic.Tiles;
 
 namespace PacMan.GameLogic.Entities

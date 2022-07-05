@@ -21,7 +21,10 @@ namespace PacMan.GameLogic
             entities = new Entity[]
             {
                 player = new Player(maze),
-                Ghost.GetGhost("Blinky", maze, player)
+                Ghost.GetGhost("Blinky", maze, player),
+                Ghost.GetGhost("Pinky", maze, player),
+                Ghost.GetGhost("Inky", maze, player),
+                Ghost.GetGhost("Clyde", maze, player)
             };
             Score = score;
             Lives = lives;

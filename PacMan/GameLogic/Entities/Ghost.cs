@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PacMan.GameLogic.Tiles;
+using PacMan.GameLogic.Entities.GhostAi;
 
 namespace PacMan.GameLogic.Entities
 {
@@ -27,7 +23,7 @@ namespace PacMan.GameLogic.Entities
                 };
             }
         }
-        public Player Pacman { get; private set; }
+        public Player PacmanTarget { get; private set; }
 
 
         public static Ghost GetGhost(string name, Maze maze, Player pacman)
@@ -38,6 +34,18 @@ namespace PacMan.GameLogic.Entities
                     Ghost blinky = new(maze, pacman, maze.BlinkyStartingCoords);
                     blinky.behaviour = new RedGhostBehaviour(blinky);
                     return blinky;
+                case "Pinky":
+                    Ghost pinky = new(maze, pacman, maze.PinkyStartingCoords);
+                    pinky.behaviour = new PinkGhostBehaviour(pinky);
+                    return pinky;
+                case "Inky":
+                    Ghost inky = new(maze, pacman, maze.InkyStartingCoords);
+                    inky.behaviour = new CyanGhostBehaviour(inky);
+                    return inky;
+                case "Clyde":
+                    Ghost clyde = new(maze, pacman, maze.ClydeStartingCoords);
+                    clyde.behaviour = new OrangeGhostBehaviour(clyde);
+                    return clyde;
                 default:
                     throw new Exception("Invalid Ghost name");
             }
@@ -46,7 +54,7 @@ namespace PacMan.GameLogic.Entities
         private Ghost(Maze maze, Player pacman, (int, int) startingCoords)
             : base (maze, startingCoords)
         {
-            Pacman = pacman;
+            PacmanTarget = pacman;
         }
 
 
