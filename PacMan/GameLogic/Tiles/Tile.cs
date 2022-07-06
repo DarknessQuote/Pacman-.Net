@@ -22,10 +22,10 @@ namespace PacMan.GameLogic.Tiles
             return tile switch
             {
                 'c' => new Pacman(x, y),
-                'B' => new Blinky(x, y),
-                'P' => new Pinky(x, y),
-                'I' => new Inky(x, y),
-                'C' => new Clyde(x, y),
+                'B' => new RedGhost(x, y),
+                'P' => new PinkGhost(x, y),
+                'I' => new CyanGhost(x, y),
+                'C' => new OrangeGhost(x, y),
                 '#' => new Wall(x, y),
                 '·' => new Dot(x, y),
                 'o' => new PowerPellet(x, y),

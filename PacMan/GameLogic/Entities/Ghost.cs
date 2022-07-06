@@ -33,19 +33,19 @@ namespace PacMan.GameLogic.Entities
             switch (name)
             {
                 case "Blinky":
-                    Ghost blinky = new(maze, pacman, maze.BlinkyStartingCoords);
+                    Ghost blinky = new(maze, pacman, maze.RedStartingCoords);
                     blinky.behaviour = new RedGhostBehaviour(blinky);
                     return blinky;
                 case "Pinky":
-                    Ghost pinky = new(maze, pacman, maze.PinkyStartingCoords);
+                    Ghost pinky = new(maze, pacman, maze.PinkStartingCoords);
                     pinky.behaviour = new PinkGhostBehaviour(pinky);
                     return pinky;
                 case "Inky":
-                    Ghost inky = new(maze, pacman, maze.InkyStartingCoords);
+                    Ghost inky = new(maze, pacman, maze.CyanStartingCoords);
                     inky.behaviour = new CyanGhostBehaviour(inky);
                     return inky;
                 case "Clyde":
-                    Ghost clyde = new(maze, pacman, maze.ClydeStartingCoords);
+                    Ghost clyde = new(maze, pacman, maze.OrangeStartingCoords);
                     clyde.behaviour = new OrangeGhostBehaviour(clyde);
                     return clyde;
                 default:

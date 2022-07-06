@@ -17,10 +17,10 @@ namespace GameContent
         public const ConsoleColor DOT_COLOR = ConsoleColor.Yellow;
         public const ConsoleColor POWER_PELLET_COLOR = ConsoleColor.Yellow;
         public const ConsoleColor PACMAN_COLOR = ConsoleColor.Yellow;
-        public const ConsoleColor BLINKY_COLOR = ConsoleColor.DarkRed;
-        public const ConsoleColor PINKY_COLOR = ConsoleColor.Magenta;
-        public const ConsoleColor INKY_COLOR = ConsoleColor.Cyan;
-        public const ConsoleColor CLYDE_COLOR = ConsoleColor.DarkYellow;
+        public const ConsoleColor RED_GHOST_COLOR = ConsoleColor.DarkRed;
+        public const ConsoleColor PINK_GHOST_COLOR = ConsoleColor.Magenta;
+        public const ConsoleColor CYAN_GHOST_COLOR = ConsoleColor.Cyan;
+        public const ConsoleColor ORANGE_GHOST_COLOR = ConsoleColor.DarkYellow;
         public const ConsoleColor SCARED_GHOST_COLOR = ConsoleColor.Blue;
     }
 }
