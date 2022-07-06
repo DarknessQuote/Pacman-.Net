@@ -55,10 +55,11 @@ namespace PacMan.GameView.Screens
                     case (GameState.Won):
                         maze = new Maze();
                         gameScene = new GameScene(maze, gameStats);
+                        DoVictoryAnimation();
                         OnLoad();
                         break;
                     case (GameState.Lost):
-                        renderer.SwitchScreens(new IntroScreen(renderer));
+                        renderer.SwitchScreens(new DefeatScreen(renderer, gameStats.Score, gameStats.GhostsEaten));
                         break;
                 }
             }
@@ -126,6 +127,17 @@ namespace PacMan.GameView.Screens
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.Write("Lives:");
             RenderLives();
+        }
+
+        private void DoVictoryAnimation()
+        {
+            Thread.Sleep(250);
+            for (int i = 0; i < screenHeight; i++)
+            {
+                Console.SetCursorPosition(0, i);
+                Console.Write(new string(' ', screenWidth));
+                Thread.Sleep(40);
+            }
         }
 
         private void ChangeWindowSize()
