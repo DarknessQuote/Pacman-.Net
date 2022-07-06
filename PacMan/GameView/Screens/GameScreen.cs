@@ -13,6 +13,7 @@ namespace PacMan.GameView.Screens
         private Maze maze;
         private GameScene gameScene;
         private GameStats gameStats;
+        private bool isPaused;
 
         private int screenWidth;
         private int screenHeight;
@@ -43,26 +44,41 @@ namespace PacMan.GameView.Screens
 
         public void Render()
         {
-            gameScene.Update();
-            RenderMaze();
-
-            switch (gameScene.State)
+            if (!isPaused)
             {
-                case (GameState.Playing):
-                    return;
-                case (GameState.Won):
-                    maze = new Maze();
-                    gameScene = new GameScene(maze, gameStats);
-                    OnLoad();
-                    break;
-                case (GameState.Lost):
-                    renderer.SwitchScreens(new IntroScreen(renderer));
-                    break;
+                gameScene.Update();
+                RenderMaze();
+                switch (gameScene.State)
+                {
+                    case (GameState.Playing):
+                        return;
+                    case (GameState.Won):
+                        maze = new Maze();
+                        gameScene = new GameScene(maze, gameStats);
+                        OnLoad();
+                        break;
+                    case (GameState.Lost):
+                        renderer.SwitchScreens(new IntroScreen(renderer));
+                        break;
+                }
             }
         }
 
         public void HandleInput(ConsoleKey key)
         {
+            switch (key)
+            {
+                case (ConsoleKey.W):
+                case (ConsoleKey.A):
+                case (ConsoleKey.S):
+                case (ConsoleKey.D):
+                    gameScene.player.ChangeDirection(key);
+                    break;
+                case (ConsoleKey.P):
+                    if (isPaused) isPaused = false;
+                    else isPaused = true;
+                    break;
+            }
             gameScene.player.ChangeDirection(key);
         }
 

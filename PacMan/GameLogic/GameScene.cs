@@ -45,11 +45,7 @@ namespace PacMan.GameLogic
                 entity.Update();
                 CheckForGhostCollision();
 
-                if (Stats.Lives == 0)
-                {
-                    State = GameState.Lost;
-                    break;
-                }
+                if (State == GameState.Lost) break;
             }
 
             if (maze.DotCount == 0 && State != GameState.Lost)
@@ -79,11 +75,16 @@ namespace PacMan.GameLogic
             }
             else
             {
+                Stats.RemoveLife();
+                if (Stats.Lives == 0)
+                {
+                    State = GameState.Lost;
+                    return;
+                }
                 foreach (Entity entity in entities)
                 {
                     entity.ReturnToStartingCoords();
                 }
-                Stats.RemoveLife();
             }
         }
     }
