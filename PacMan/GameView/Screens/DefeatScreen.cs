@@ -8,17 +8,19 @@ namespace PacMan.GameView.Screens
 {
     class DefeatScreen : IScreen
     {
-        private Renderer renderer;
+        private readonly Renderer renderer;
 
-        public int ScoreDisplay { get; set; }
-        public int GhostsEatenDisplay { get; set; }
+        private readonly int scoreDisplay;
+        private readonly int gamesWonDisplay;
+        private readonly int ghostsEatenDisplay;
 
-        public DefeatScreen(Renderer renderer, int score, int ghostsEaten)
+        public DefeatScreen(Renderer renderer, int score, int gamesWon, int ghostsEaten)
         {
             this.renderer = renderer;
 
-            ScoreDisplay = score;
-            GhostsEatenDisplay = ghostsEaten;
+            scoreDisplay = score;
+            gamesWonDisplay = gamesWon;
+            ghostsEatenDisplay = ghostsEaten;
         }
 
         public void OnLoad()
@@ -31,8 +33,9 @@ namespace PacMan.GameView.Screens
             }
 
             Console.WriteLine("You lost, loser");
-            Console.WriteLine($"Final score: {ScoreDisplay}");
-            Console.WriteLine($"Ghosts eaten: {GhostsEatenDisplay}\n");
+            Console.WriteLine($"Final score: {scoreDisplay}");
+            Console.WriteLine($"Games won: {gamesWonDisplay}");
+            Console.WriteLine($"Ghosts eaten: {ghostsEatenDisplay}\n");
             Console.WriteLine("Press Enter to return to main menu");
         }
 

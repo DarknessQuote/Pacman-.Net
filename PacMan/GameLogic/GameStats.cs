@@ -10,6 +10,7 @@ namespace PacMan.GameLogic
     {
         public int Score { get; private set; }
         public int Lives { get; private set; }
+        public int GamesWon { get; private set; }
         public int GhostsEaten { get; private set; }
 
         public event Action OnScoreChange;
@@ -18,6 +19,7 @@ namespace PacMan.GameLogic
         public GameStats()
         {
             Score = 0;
+            GamesWon = 0;
             Lives = 3;
         }
 
@@ -32,6 +34,8 @@ namespace PacMan.GameLogic
             Lives--;
             OnLivesChange?.Invoke();
         }
+
+        public void IncreaseGamesWonCounter() => GamesWon++;
 
         public void RewardForEatenGhost()
         {

@@ -10,9 +10,9 @@ namespace PacMan.GameView.Screens
     class GameScreen : IScreen
     {
         private readonly Renderer renderer;
+        private readonly GameStats gameStats;
         private Maze maze;
         private GameScene gameScene;
-        private GameStats gameStats;
         private bool isPaused;
 
         private int screenWidth;
@@ -59,7 +59,8 @@ namespace PacMan.GameView.Screens
                         OnLoad();
                         break;
                     case (GameState.Lost):
-                        renderer.SwitchScreens(new DefeatScreen(renderer, gameStats.Score, gameStats.GhostsEaten));
+                        renderer.SwitchScreens(
+                            new DefeatScreen(renderer, gameStats.Score, gameStats.GamesWon, gameStats.GhostsEaten));
                         break;
                 }
             }

@@ -51,6 +51,7 @@ namespace PacMan.GameLogic
             if (maze.DotCount == 0 && State != GameState.Lost)
             {
                 Stats.CalculateFinalScore();
+                Stats.IncreaseGamesWonCounter();
                 State = GameState.Won;
             }
         }
