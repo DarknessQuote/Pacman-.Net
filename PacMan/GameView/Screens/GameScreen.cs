@@ -53,12 +53,13 @@ namespace PacMan.GameView.Screens
                     case (GameState.Playing):
                         return;
                     case (GameState.Won):
+                        DoGaneEndingAnimation();
                         maze = new Maze();
                         gameScene = new GameScene(maze, gameStats);
-                        DoVictoryAnimation();
                         OnLoad();
                         break;
                     case (GameState.Lost):
+                        DoGaneEndingAnimation();
                         renderer.SwitchScreens(
                             new DefeatScreen(renderer, gameStats.Score, gameStats.GamesWon, gameStats.GhostsEaten));
                         break;
@@ -130,9 +131,9 @@ namespace PacMan.GameView.Screens
             RenderLives();
         }
 
-        private void DoVictoryAnimation()
+        private void DoGaneEndingAnimation()
         {
-            Thread.Sleep(250);
+            Thread.Sleep(500);
             for (int i = 0; i < screenHeight; i++)
             {
                 Console.SetCursorPosition(0, i);

@@ -16,7 +16,7 @@ namespace PacMan.GameView.Screens
         public IntroScreen(Renderer renderer)
         {
             this.renderer = renderer;
-            menuOptions = new string[] { "New Game", "Exit" };
+            menuOptions = new string[] { "New Game", "Instructions", "Exit" };
             selectedOption = menuOptions[0];
             selectedOptionIndex = 0;
         }
@@ -84,6 +84,10 @@ namespace PacMan.GameView.Screens
                 renderer.SwitchScreens(new GameScreen(renderer));
             }
             else if (option == menuOptions[1])
+            {
+                renderer.SwitchScreens(new InstructionsScreen(renderer));
+            }
+            else if (option == menuOptions[2])
             {
                 Environment.Exit(0);
             }
