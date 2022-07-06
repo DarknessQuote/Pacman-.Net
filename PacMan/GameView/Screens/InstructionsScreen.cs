@@ -5,7 +5,7 @@ namespace PacMan.GameView.Screens
 {
     class InstructionsScreen : IScreen
     {
-        private Renderer renderer;
+        private readonly Renderer renderer;
 
         public InstructionsScreen(Renderer renderer)
         {
