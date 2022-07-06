@@ -12,6 +12,7 @@ namespace PacMan.GameView.Screens
         private readonly Renderer renderer;
         private Maze maze;
         private GameScene gameScene;
+        private GameStats gameStats;
 
         private int screenWidth;
         private int screenHeight;
@@ -25,10 +26,11 @@ namespace PacMan.GameView.Screens
         {
             this.renderer = renderer;
             maze = new Maze();
-            gameScene = new GameScene(maze);
+            gameStats = new GameStats();
+            gameScene = new GameScene(maze, gameStats);
 
-            gameScene.ScoreAdded += RenderScore;
-            gameScene.LifeLost += RenderLives;
+            gameStats.OnScoreChange += () => RenderScore();
+            gameStats.OnLivesChange += () => RenderLives();
         }
 
         public void OnLoad()
@@ -50,7 +52,7 @@ namespace PacMan.GameView.Screens
                     return;
                 case (GameState.Won):
                     maze = new Maze();
-                    gameScene = new GameScene(maze, gameScene.Score, gameScene.Lives);
+                    gameScene = new GameScene(maze, gameStats);
                     OnLoad();
                     break;
                 case (GameState.Lost):
@@ -61,7 +63,7 @@ namespace PacMan.GameView.Screens
 
         public void HandleInput(ConsoleKey key)
         {
-            gameScene.GetInput(key);
+            gameScene.player.ChangeDirection(key);
         }
 
         private void RenderMaze()
@@ -79,7 +81,7 @@ namespace PacMan.GameView.Screens
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.SetCursorPosition(infoPosX, scoreInfoPosY + 1);
-            Console.Write($"{gameScene.Score:d6}");
+            Console.Write($"{gameStats.Score:d6}");
         }
 
         private void RenderLives()
@@ -89,7 +91,7 @@ namespace PacMan.GameView.Screens
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             for (int i = 1; i <= 3; i++)
             {
-                if (i > gameScene.Lives)
+                if (i > gameStats.Lives)
                 {
                     Console.ForegroundColor = ConsoleColor.Black;
                 }

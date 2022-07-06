@@ -58,7 +58,7 @@ namespace PacMan.GameLogic.Entities
         {
             PacmanTarget = pacman;
             mainColor = controlledTile.TileColor;
-            Player.OnPowerPelletEaten += () => SwitchState(GhostState.Frightened);
+            PacmanTarget.OnPowerPelletEaten += () => SwitchState(GhostState.Frightened);
         }
 
         public override void ReturnToStartingCoords()

@@ -7,27 +7,22 @@ namespace PacMan.GameLogic
     class GameScene
     {
         private readonly Maze maze;
-        private readonly Player player;
         private readonly Ghost blinky;
         private readonly Ghost pinky;
         private readonly Ghost inky;
         private readonly Ghost clyde;
+        public readonly Player player;
 
         private readonly Entity[] entities;
         private readonly Ghost[] ghosts;
 
         public GameState State { get; private set; } = GameState.Playing;
-        public int Score { get; private set; }
-        public int Lives { get; private set; }
+        public GameStats Stats { get; private set; }
 
-        public event Action ScoreAdded;
-        public event Action LifeLost;
-
-        public GameScene(Maze maze, int score = 0, int lives = 3)
+        public GameScene(Maze maze, GameStats startingStats)
         {
             this.maze = maze;
-            Score = score;
-            Lives = lives;
+            Stats = startingStats;
 
             entities = new Entity[]
             {
@@ -39,8 +34,8 @@ namespace PacMan.GameLogic
             };
             ghosts = new Ghost[] { blinky, pinky, inky, clyde };
 
-            Player.OnDotEaten += () => AddScore(10);
-            Player.OnPowerPelletEaten += () => AddScore(50);
+            player.OnDotEaten += () => Stats.AddScore(10);
+            player.OnPowerPelletEaten += () => Stats.AddScore(50);
         }
 
         public void Update()
@@ -50,7 +45,7 @@ namespace PacMan.GameLogic
                 entity.Update();
                 CheckForGhostCollision();
 
-                if (Lives == 0)
+                if (Stats.Lives == 0)
                 {
                     State = GameState.Lost;
                     break;
@@ -59,13 +54,9 @@ namespace PacMan.GameLogic
 
             if (maze.DotCount == 0 && State != GameState.Lost)
             {
+                Stats.CalculateFinalScore();
                 State = GameState.Won;
             }
-        }
-
-        public void GetInput(ConsoleKey input)
-        {
-            player.ChangeDirection(input);
         }
 
         private void CheckForGhostCollision()
@@ -84,7 +75,7 @@ namespace PacMan.GameLogic
             if (ghost.State == GhostState.Frightened)
             {
                 ghost.ReturnToStartingCoords();
-                AddScore(200);
+                Stats.RewardForEatenGhost();
             }
             else
             {
@@ -92,15 +83,8 @@ namespace PacMan.GameLogic
                 {
                     entity.ReturnToStartingCoords();
                 }
-                Lives--;
-                LifeLost?.Invoke();
+                Stats.RemoveLife();
             }
-        }
-
-        private void AddScore(int scoreToAdd)
-        {
-            Score += scoreToAdd;
-            ScoreAdded?.Invoke();
         }
     }
 }
