@@ -17,8 +17,8 @@ namespace PacMan.GameView.Screens
             Console.Clear();
             if (OperatingSystem.IsWindows())
             {
-                Console.SetWindowSize(70, 30);
-                Console.SetBufferSize(70, 30);
+                Console.SetWindowSize(125, 18);
+                Console.SetBufferSize(125, 18);
             }
             Console.Write(TextFileReader.ReadFromFile(@"GameContent\Instructions.txt"));
         }
