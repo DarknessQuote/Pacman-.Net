@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using PacMan.GameApplication;
 
 namespace PacMan.GameView.Screens
 {
     class DefeatScreen : IScreen
     {
         private readonly Renderer renderer;
+        private const int screenWidth = 29;
+        private const int screenHeight = 25;
 
         private readonly int scoreDisplay;
         private readonly int gamesWonDisplay;
@@ -28,15 +30,18 @@ namespace PacMan.GameView.Screens
             Console.Clear();
             if (OperatingSystem.IsWindows())
             {
-                Console.SetWindowSize(20, 20);
-                Console.SetBufferSize(20, 20);
+                Console.SetWindowSize(screenWidth, screenHeight);
+                Console.SetBufferSize(screenWidth, screenHeight);
             }
 
-            Console.WriteLine("You lost, loser");
+            Console.SetCursorPosition(0, 2);
+            Console.WriteLine(TextFileReader.ReadFromFile(@"GameContent\DefeatPicture.txt"));
+
+            Console.WriteLine("\nSorry, but you lost");
             Console.WriteLine($"Final score: {scoreDisplay}");
             Console.WriteLine($"Games won: {gamesWonDisplay}");
-            Console.WriteLine($"Ghosts eaten: {ghostsEatenDisplay}\n");
-            Console.WriteLine("Press Enter to return to main menu");
+            Console.WriteLine($"Ghosts eaten: {ghostsEatenDisplay}");
+            Console.WriteLine("\nPress Enter");
         }
 
         public void Render() { }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using PacMan.GameApplication;
 
 namespace PacMan.GameView.Screens
 {
@@ -26,22 +26,22 @@ namespace PacMan.GameView.Screens
             Console.Clear();
             if (OperatingSystem.IsWindows())
             {
-                Console.SetWindowSize(20, 20);
-                Console.SetBufferSize(20, 20);
+                Console.SetWindowSize(38, 20);
+                Console.SetBufferSize(38, 20);
             }
 
-            Console.SetCursorPosition(7, 2);
+            Console.SetCursorPosition(0, 2);
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Pacman");
+            Console.Write(TextFileReader.ReadFromFile(@"GameContent\IntroPicture.txt"));
             Console.ResetColor();
         }
 
         public void Render()
         {
-            int i = 0;
+            int i = 11;
             foreach (string option in menuOptions)
             {
-                Console.SetCursorPosition(10 - (option.Length / 2), 4 + i++);
+                Console.SetCursorPosition(19 - (option.Length / 2), i++);
                 if (option == selectedOption)
                 {
                     Console.BackgroundColor = ConsoleColor.DarkBlue;
