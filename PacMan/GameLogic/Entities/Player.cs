@@ -5,7 +5,7 @@ namespace PacMan.GameLogic.Entities
 {
     class Player : Entity
     {
-        private Direction ChangedDirection { get; set; }
+        private Direction NewDirection { get; set; }
 
         public event Action OnDotEaten;
         public event Action OnPowerPelletEaten;
@@ -16,11 +16,11 @@ namespace PacMan.GameLogic.Entities
         public override void ReturnToStartingCoords()
         {
             base.ReturnToStartingCoords();
-            ChangedDirection = Direction.NONE;
+            NewDirection = Direction.NONE;
         }
         public void ChangeDirection(ConsoleKey input)
         {
-            ChangedDirection = input switch
+            NewDirection = input switch
             {
                 ConsoleKey.W => Direction.UP,
                 ConsoleKey.A => Direction.LEFT,
@@ -32,15 +32,10 @@ namespace PacMan.GameLogic.Entities
 
         protected override Direction GetDirection()
         {
-            if (CurrentDirection == ChangedDirection || GetNextCell(ChangedDirection).IsWall)
-            {
-                if (NextCell.IsWall)
-                {
-                    CurrentDirection = Direction.NONE;
-                }
-                return CurrentDirection;
-            }            
-            return ChangedDirection;
+            if (!GetNextCell(NewDirection).IsWall) return NewDirection;
+            if (NextCell.IsWall) return Direction.NONE;
+            return CurrentDirection;
+
         }
 
         protected override void ProcessCell()
