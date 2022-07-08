@@ -9,15 +9,15 @@ namespace PacMan.GameView.Screens
     class IntroScreen : IScreen
     {        
         private readonly Renderer renderer;
-        private readonly string[] menuOptions;
+        private readonly string[] optionsStrings;
         private string selectedOption;
         private int selectedOptionIndex;
 
         public IntroScreen(Renderer renderer)
         {
             this.renderer = renderer;
-            menuOptions = new string[] { "New Game", "Instructions", "Exit" };
-            selectedOption = menuOptions[0];
+            optionsStrings = new string[] { "New Game", "Instructions", "Exit" };
+            selectedOption = optionsStrings[0];
             selectedOptionIndex = 0;
         }
 
@@ -39,7 +39,7 @@ namespace PacMan.GameView.Screens
         public void Render()
         {
             int i = 11;
-            foreach (string option in menuOptions)
+            foreach (string option in optionsStrings)
             {
                 Console.SetCursorPosition(19 - (option.Length / 2), i++);
                 if (option == selectedOption)
@@ -68,12 +68,12 @@ namespace PacMan.GameView.Screens
 
             void ScrollMenu(int index)
             {
-                if (index == -1 || index == menuOptions.Length)
+                if (index == -1 || index == optionsStrings.Length)
                 {
-                    selectedOptionIndex = Math.Abs(Math.Abs(index) - menuOptions.Length);
+                    selectedOptionIndex = Math.Abs(Math.Abs(index) - optionsStrings.Length);
                 }
 
-                selectedOption = menuOptions[selectedOptionIndex];
+                selectedOption = optionsStrings[selectedOptionIndex];
             }
         }
 
@@ -81,16 +81,23 @@ namespace PacMan.GameView.Screens
         {
             switch (selectedOptionIndex)
             {
-                case 0:
+                case (int)MenuOptions.NewGame:
                     renderer.SwitchScreens(new GameScreen(renderer));
                     break;
-                case 1:
+                case (int)MenuOptions.Instructions:
                     renderer.SwitchScreens(new InstructionsScreen(renderer));
                     break;
-                case 2:
+                case (int)MenuOptions.Exit:
                     Environment.Exit(0);
                     break;
             }
+        }
+
+        enum MenuOptions
+        {
+            NewGame,
+            Instructions,
+            Exit
         }
     }
 }
