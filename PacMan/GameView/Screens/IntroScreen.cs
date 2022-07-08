@@ -62,7 +62,7 @@ namespace PacMan.GameView.Screens
                     ScrollMenu(++selectedOptionIndex);
                     break;
                 case (ConsoleKey.Enter):
-                    SelectOption(selectedOption);
+                    SelectOption();
                     break;
             }
 
@@ -77,19 +77,19 @@ namespace PacMan.GameView.Screens
             }
         }
 
-        private void SelectOption(string option)
+        private void SelectOption()
         {
-            if (option == menuOptions[0])
+            switch (selectedOptionIndex)
             {
-                renderer.SwitchScreens(new GameScreen(renderer));
-            }
-            else if (option == menuOptions[1])
-            {
-                renderer.SwitchScreens(new InstructionsScreen(renderer));
-            }
-            else if (option == menuOptions[2])
-            {
-                Environment.Exit(0);
+                case 0:
+                    renderer.SwitchScreens(new GameScreen(renderer));
+                    break;
+                case 1:
+                    renderer.SwitchScreens(new InstructionsScreen(renderer));
+                    break;
+                case 2:
+                    Environment.Exit(0);
+                    break;
             }
         }
     }
