@@ -10,14 +10,14 @@ namespace PacMan.GameLogic
 {
     class Cell : IEnumerable<Tile>
     {
-        private readonly LinkedList<Tile> tilesInCell;
+        private readonly List<Tile> tilesInCell;
         public int CellX { get; private set; }
         public int CellY { get; private set; }
         public bool IsWall { get => GetTopLayerTile() is Wall; }
 
         public Cell(int x, int y)
         {
-            tilesInCell = new LinkedList<Tile>();
+            tilesInCell = new List<Tile>();
             AddTile(new EmptyTile(x, y));
 
             CellX = x;
@@ -26,12 +26,12 @@ namespace PacMan.GameLogic
 
         public Tile GetTopLayerTile()
         {
-            return tilesInCell.First.Value;
+            return tilesInCell[^1];
         }
 
         public void AddTile(Tile tile)
         {
-            tilesInCell.AddFirst(tile);
+            tilesInCell.Add(tile);
         }
 
         public void RemoveTile(Tile tile)
