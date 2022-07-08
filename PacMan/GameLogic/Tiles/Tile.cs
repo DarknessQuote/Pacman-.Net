@@ -29,7 +29,6 @@ namespace PacMan.GameLogic.Tiles
                 '#' => new Wall(x, y),
                 '·' => new Dot(x, y),
                 'o' => new PowerPellet(x, y),
-                '\0' => new EmptyTile(x, y),
                 _ => new EmptyTile(x, y)
             };
         }

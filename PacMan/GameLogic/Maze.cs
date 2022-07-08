@@ -73,6 +73,7 @@ namespace PacMan.GameLogic
             PinkGhost.PinkGTileCreated += (pinkTile) => PinkStartingCoords = (pinkTile.CoordX, pinkTile.CoordY);
             CyanGhost.CyanGTileCreated += (cyanTile) => CyanStartingCoords = (cyanTile.CoordX, cyanTile.CoordY);
             OrangeGhost.OrangeGTileCreated += (orangeTile) => OrangeStartingCoords = (orangeTile.CoordX, orangeTile.CoordY);
+
             EatableTile.EatableTileCreated += () => DotCount++;
             EatableTile.EatableTileEaten += () => DotCount--;
         }

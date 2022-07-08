@@ -8,7 +8,7 @@ namespace PacMan.GameLogic.Tiles
         public static event Action<Tile> CyanGTileCreated;
 
         public CyanGhost(int x, int y)
-            : base(x, y, Constants.GHOST_TILE, Constants.CYAN_GHOST_COLOR)
+            : base(x, y, TileVisuals.GHOST_TILE, TileVisuals.CYAN_GHOST_COLOR)
         {
             CyanGTileCreated?.Invoke(this);
         }

@@ -2,7 +2,7 @@
 
 namespace GameContent
 {
-    class Constants
+    class TileVisuals
     {
         public const char EMPTY_TILE = ' ';
         public const char WALL_TILE = '#';

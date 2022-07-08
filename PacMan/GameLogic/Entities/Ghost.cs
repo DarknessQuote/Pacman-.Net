@@ -70,12 +70,12 @@ namespace PacMan.GameLogic.Entities
         {
             if (gState == GhostState.Frightened)
             {
-                controlledTile.TileTexture = Constants.SCARED_GHOST_TILE;
-                controlledTile.TileColor = Constants.SCARED_GHOST_COLOR;
+                controlledTile.TileTexture = TileVisuals.SCARED_GHOST_TILE;
+                controlledTile.TileColor = TileVisuals.SCARED_GHOST_COLOR;
             }
             else
             {
-                controlledTile.TileTexture = Constants.GHOST_TILE;
+                controlledTile.TileTexture = TileVisuals.GHOST_TILE;
                 controlledTile.TileColor = mainColor;
             }
 

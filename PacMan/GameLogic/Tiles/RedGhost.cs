@@ -12,7 +12,7 @@ namespace PacMan.GameLogic.Tiles
         public static event Action<Tile> RedGTileCreated;
 
         public RedGhost(int x, int y)
-            : base(x, y, Constants.GHOST_TILE, Constants.RED_GHOST_COLOR)
+            : base(x, y, TileVisuals.GHOST_TILE, TileVisuals.RED_GHOST_COLOR)
         {
             RedGTileCreated?.Invoke(this);
         }

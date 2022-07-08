@@ -8,7 +8,7 @@ namespace PacMan.GameLogic.Tiles
         public static event Action<Tile> PinkGTileCreated;
 
         public PinkGhost(int x, int y)
-            : base(x, y, Constants.GHOST_TILE, Constants.PINK_GHOST_COLOR)
+            : base(x, y, TileVisuals.GHOST_TILE, TileVisuals.PINK_GHOST_COLOR)
         {
             PinkGTileCreated?.Invoke(this);
         }
