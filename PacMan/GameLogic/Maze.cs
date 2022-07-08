@@ -8,8 +8,8 @@ namespace PacMan.GameLogic
     class Maze : IEnumerable
     {
         private readonly Cell[,] map;
-        private Tile redGhostTile;
 
+        public Tile RedGhostTile { get; private set; }
         public (int X, int Y) PacmanStartingCoords { get; private set; }
         public (int X, int Y) RedStartingCoords { get; private set; }
         public (int X, int Y) PinkStartingCoords { get; private set; }
@@ -73,7 +73,7 @@ namespace PacMan.GameLogic
             {
                 RedStartingCoords = (redTile.CoordX, redTile.CoordY);
                 map[redTile.CoordX, redTile.CoordY].AddTile(new EmptyTile(redTile.CoordX, redTile.CoordY));
-                redGhostTile = redTile;
+                RedGhostTile = redTile;
             };
             PinkGhost.PinkGTileCreated += (pinkTile) =>
             {
@@ -93,15 +93,6 @@ namespace PacMan.GameLogic
 
             EatableTile.EatableTileCreated += () => DotCount++;
             EatableTile.EatableTileEaten += () => DotCount--;
-        }
-
-        public Cell GetBlinkyCell()
-        {
-            foreach (Cell cell in map)
-            {
-                if (cell.Contains(redGhostTile)) return cell;
-            }
-            throw new Exception("No Blinky in maze");
         }
 
         IEnumerator IEnumerable.GetEnumerator() => map.GetEnumerator();

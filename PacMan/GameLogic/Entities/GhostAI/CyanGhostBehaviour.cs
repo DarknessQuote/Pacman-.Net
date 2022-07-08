@@ -1,4 +1,6 @@
-﻿namespace PacMan.GameLogic.Entities.GhostAi
+﻿using PacMan.GameLogic.Tiles;
+
+namespace PacMan.GameLogic.Entities.GhostAi
 {
     class CyanGhostBehaviour : GhostBehaviour
     {
@@ -11,9 +13,9 @@
         private Cell GetCyanChaseCell()
         {
             Cell pacmanNextCell = ghost.PacmanTarget.GetNextCell(ghost.PacmanTarget.CurrentDirection, 2);
-            Cell redGhostCell = ghost.Maze.GetBlinkyCell();
-            int targetCellX = redGhostCell.CellX + 2 * (pacmanNextCell.CellX - redGhostCell.CellX);
-            int targetCellY = redGhostCell.CellY + 2 * (pacmanNextCell.CellY - redGhostCell.CellY);
+            Tile redGhostCell = ghost.Maze.RedGhostTile;
+            int targetCellX = redGhostCell.CoordX + 2 * (pacmanNextCell.CellX - redGhostCell.CoordX);
+            int targetCellY = redGhostCell.CoordY + 2 * (pacmanNextCell.CellY - redGhostCell.CoordY);
             return ghost.Maze[targetCellX, targetCellY];
         }
     }
