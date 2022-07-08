@@ -64,15 +64,32 @@ namespace PacMan.GameLogic
 
         private void HookEventsToMaze()
         {
-            Pacman.PacmanTileCreated += (pacmanTile) => PacmanStartingCoords = (pacmanTile.CoordX, pacmanTile.CoordY);
+            Pacman.PacmanTileCreated += (pacmanTile) =>
+            {
+                PacmanStartingCoords = (pacmanTile.CoordX, pacmanTile.CoordY);
+                map[pacmanTile.CoordX, pacmanTile.CoordY].AddTile(new EmptyTile(pacmanTile.CoordX, pacmanTile.CoordY));
+            };
             RedGhost.RedGTileCreated += (redTile) =>
             {
                 RedStartingCoords = (redTile.CoordX, redTile.CoordY);
+                map[redTile.CoordX, redTile.CoordY].AddTile(new EmptyTile(redTile.CoordX, redTile.CoordY));
                 redGhostTile = redTile;
             };
-            PinkGhost.PinkGTileCreated += (pinkTile) => PinkStartingCoords = (pinkTile.CoordX, pinkTile.CoordY);
-            CyanGhost.CyanGTileCreated += (cyanTile) => CyanStartingCoords = (cyanTile.CoordX, cyanTile.CoordY);
-            OrangeGhost.OrangeGTileCreated += (orangeTile) => OrangeStartingCoords = (orangeTile.CoordX, orangeTile.CoordY);
+            PinkGhost.PinkGTileCreated += (pinkTile) =>
+            {
+                PinkStartingCoords = (pinkTile.CoordX, pinkTile.CoordY);
+                map[pinkTile.CoordX, pinkTile.CoordY].AddTile(new EmptyTile(pinkTile.CoordX, pinkTile.CoordY));
+            };
+            CyanGhost.CyanGTileCreated += (cyanTile) =>
+            {
+                CyanStartingCoords = (cyanTile.CoordX, cyanTile.CoordY);
+                map[cyanTile.CoordX, cyanTile.CoordY].AddTile(new EmptyTile(cyanTile.CoordX, cyanTile.CoordY));
+            };
+            OrangeGhost.OrangeGTileCreated += (orangeTile) =>
+            {
+                OrangeStartingCoords = (orangeTile.CoordX, orangeTile.CoordY);
+                map[orangeTile.CoordX, orangeTile.CoordY].AddTile(new EmptyTile(orangeTile.CoordX, orangeTile.CoordY));
+            };
 
             EatableTile.EatableTileCreated += () => DotCount++;
             EatableTile.EatableTileEaten += () => DotCount--;

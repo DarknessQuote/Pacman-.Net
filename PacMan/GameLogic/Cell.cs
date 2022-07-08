@@ -13,13 +13,11 @@ namespace PacMan.GameLogic
         private readonly List<Tile> tilesInCell;
         public int CellX { get; private set; }
         public int CellY { get; private set; }
-        public bool IsWall { get => GetTopLayerTile() is Wall; }
+        public bool IsWall { get => tilesInCell[0] is Wall; }
 
         public Cell(int x, int y)
         {
             tilesInCell = new List<Tile>();
-            AddTile(new EmptyTile(x, y));
-
             CellX = x;
             CellY = y;
         }
