@@ -6,25 +6,25 @@ namespace PacMan.GameApplication
     {
         public static char[,] LoadMapLayout(string pathToMap)
         {
-            string[] layoutStrings = File.ReadAllLines(pathToMap);
-            char[,] layout = new char[layoutStrings[0].Length, layoutStrings.Length];
-            return FillArray(layout, layoutStrings);
+            string[] rows = File.ReadAllLines(pathToMap);
+            char[,] matrix = new char[rows[0].Length, rows.Length];
+            return FillMatrix(matrix, rows);
         }
 
-        private static char[,] FillArray(char[,] layout, string[] mapLayout)
+        private static char[,] FillMatrix(char[,] matrix, string[] rows)
         {
-            for (int y = 0; y < layout.GetLength(1); y++)
+            for (int y = 0; y < matrix.GetLength(1); y++)
             {
-                string currentRow = mapLayout[y];
+                string currentRow = rows[y];
 
-                for (int x = 0; x < layout.GetLength(0); x++)
+                for (int x = 0; x < matrix.GetLength(0); x++)
                 {
                     char tile = currentRow[x];
-                    layout[x, y] = tile;
+                    matrix[x, y] = tile;
                 }
             }
 
-            return layout;
+            return matrix;
         }
     }
 }

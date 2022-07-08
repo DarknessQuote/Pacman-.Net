@@ -43,7 +43,7 @@ namespace PacMan.GameLogic
             AddScore(200);
         }
 
-        public void CalculateFinalScore()
+        public void UpdateFinalScore()
         {
             Score += Lives * 200;
         }

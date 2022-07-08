@@ -46,7 +46,7 @@ namespace PacMan.GameView.Screens
         {
             if (!isPaused)
             {
-                gameScene.Update();
+                gameScene.UpdateGameState();
                 RenderMaze();
                 switch (gameScene.State)
                 {
@@ -90,8 +90,8 @@ namespace PacMan.GameView.Screens
             foreach (Cell cell in maze)
             {
                 Console.SetCursorPosition(cell.CellX, cell.CellY);
-                Console.ForegroundColor = cell.GetTopLayerTile().TileColor;
-                Console.Write(cell.GetTopLayerTile().TileTexture);
+                Console.ForegroundColor = cell.GetTopTile().TileColor;
+                Console.Write(cell.GetTopTile().TileTexture);
             }
             Console.ResetColor();
         }

@@ -22,7 +22,7 @@ namespace PacMan.GameLogic
             CellY = y;
         }
 
-        public Tile GetTopLayerTile()
+        public Tile GetTopTile()
         {
             return tilesInCell[^1];
         }

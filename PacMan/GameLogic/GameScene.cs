@@ -39,7 +39,7 @@ namespace PacMan.GameLogic
             PowerPellet.OnPowerPelletEaten += () => Stats.AddScore(50);
         }
 
-        public void Update()
+        public void UpdateGameState()
         {
             foreach (var entity in entities)
             {
@@ -51,7 +51,7 @@ namespace PacMan.GameLogic
 
             if (maze.DotCount == 0 && State != GameState.Lost)
             {
-                Stats.CalculateFinalScore();
+                Stats.UpdateFinalScore();
                 Stats.IncreaseGamesWonCounter();
                 State = GameState.Won;
             }

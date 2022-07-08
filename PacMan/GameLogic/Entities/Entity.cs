@@ -15,7 +15,7 @@ namespace PacMan.GameLogic.Entities
         {
             Maze = maze;
             StartingCoords = startingCoords;
-            controlledTile = maze[startingCoords.X, startingCoords.Y].GetTopLayerTile();
+            controlledTile = maze[startingCoords.X, startingCoords.Y].GetTopTile();
         }
 
         public void Update()
