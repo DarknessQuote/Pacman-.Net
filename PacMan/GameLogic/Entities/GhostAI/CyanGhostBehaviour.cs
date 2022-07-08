@@ -11,9 +11,9 @@
         private Cell GetCyanChaseCell()
         {
             Cell pacmanNextCell = ghost.PacmanTarget.GetNextCell(ghost.PacmanTarget.CurrentDirection, 2);
-            Cell blinkyCell = ghost.Maze.GetBlinkyCell();
-            int targetCellX = pacmanNextCell.CellX * 2 - blinkyCell.CellX;
-            int targetCellY = pacmanNextCell.CellY * 2 - blinkyCell.CellY;
+            Cell redGhostCell = ghost.Maze.GetBlinkyCell();
+            int targetCellX = redGhostCell.CellX + 2 * (pacmanNextCell.CellX - redGhostCell.CellX);
+            int targetCellY = redGhostCell.CellY + 2 * (pacmanNextCell.CellY - redGhostCell.CellY);
             return ghost.Maze[targetCellX, targetCellY];
         }
     }
