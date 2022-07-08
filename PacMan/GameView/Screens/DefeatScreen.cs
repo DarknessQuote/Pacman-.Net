@@ -28,6 +28,7 @@ namespace PacMan.GameView.Screens
         public void OnLoad()
         {
             Console.Clear();
+            Console.ResetColor();
             if (OperatingSystem.IsWindows())
             {
                 Console.SetWindowSize(screenWidth, screenHeight);

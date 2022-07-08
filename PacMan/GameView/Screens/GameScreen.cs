@@ -93,7 +93,6 @@ namespace PacMan.GameView.Screens
                 Console.ForegroundColor = cell.GetTopTile().TileColor;
                 Console.Write(cell.GetTopTile().TileTexture);
             }
-            Console.ResetColor();
         }
 
         private void RenderScore()
