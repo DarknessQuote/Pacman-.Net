@@ -1,5 +1,6 @@
 ﻿using System;
 using GameContent;
+using PacMan.GameLogic.Tiles;
 using PacMan.GameLogic.Entities.GhostAi;
 
 namespace PacMan.GameLogic.Entities
@@ -58,7 +59,7 @@ namespace PacMan.GameLogic.Entities
         {
             PacmanTarget = pacman;
             mainColor = controlledTile.TileColor;
-            PacmanTarget.OnPowerPelletEaten += () => SwitchState(GhostState.Frightened);
+            PowerPellet.OnPowerPelletEaten += () => SwitchState(GhostState.Frightened);
         }
 
         public override void ReturnToStartingCoords()

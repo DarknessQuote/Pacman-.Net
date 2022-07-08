@@ -32,5 +32,7 @@ namespace PacMan.GameLogic.Tiles
                 _ => new EmptyTile(x, y)
             };
         }
+
+        public virtual void Process() { }
     }
 }

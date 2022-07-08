@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using PacMan.GameLogic.Entities;
+using PacMan.GameLogic.Tiles;
 
 namespace PacMan.GameLogic
 {
@@ -34,8 +35,8 @@ namespace PacMan.GameLogic
             };
             ghosts = new Ghost[] { blinky, pinky, inky, clyde };
 
-            player.OnDotEaten += () => Stats.AddScore(10);
-            player.OnPowerPelletEaten += () => Stats.AddScore(50);
+            Dot.OnDotEaten += () => Stats.AddScore(10);
+            PowerPellet.OnPowerPelletEaten += () => Stats.AddScore(50);
         }
 
         public void Update()

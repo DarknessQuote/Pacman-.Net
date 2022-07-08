@@ -16,7 +16,7 @@ namespace PacMan.GameLogic.Tiles
             EatableTileCreated?.Invoke();
         }
 
-        public void Eat()
+        protected void Eat()
         {
             TileTexture = TileVisuals.EMPTY_TILE;
             IsEaten = true;

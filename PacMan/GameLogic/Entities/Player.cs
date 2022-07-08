@@ -5,10 +5,7 @@ namespace PacMan.GameLogic.Entities
 {
     class Player : Entity
     {
-        private Direction NewDirection { get; set; }
-
-        public event Action OnDotEaten;
-        public event Action OnPowerPelletEaten;
+        private Direction NewDirection { get; set; }      
 
         public Player(Maze maze) 
             : base(maze, maze.PacmanStartingCoords) { }
@@ -42,16 +39,7 @@ namespace PacMan.GameLogic.Entities
         {
             foreach (Tile tile in CurrentCell)
             {
-                if (tile is Dot dot && !dot.IsEaten)
-                {
-                    dot.Eat();
-                    OnDotEaten?.Invoke();
-                }
-                if (tile is PowerPellet pp && !pp.IsEaten)
-                {
-                    pp.Eat();
-                    OnPowerPelletEaten?.Invoke();
-                }
+                tile.Process();
             }
         }
     }
