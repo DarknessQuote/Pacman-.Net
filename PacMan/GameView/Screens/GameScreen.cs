@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using PacMan.GameLogic;
+using PacMan.GameLogic.Tiles;
 
 namespace PacMan.GameView.Screens
 {
@@ -27,6 +25,8 @@ namespace PacMan.GameView.Screens
         {
             this.renderer = renderer;
             maze = new Maze();
+            TileVisualiser.AttachVisualsToTiles(maze);
+
             gameStats = new GameStats();
             gameScene = new GameScene(maze, gameStats);
 
@@ -55,6 +55,7 @@ namespace PacMan.GameView.Screens
                     case (GameState.Won):
                         DoGameEndingAnimation();
                         maze = new Maze();
+                        TileVisualiser.AttachVisualsToTiles(maze);
                         gameScene = new GameScene(maze, gameStats);
                         OnLoad();
                         break;
@@ -90,8 +91,7 @@ namespace PacMan.GameView.Screens
             foreach (Cell cell in maze)
             {
                 Console.SetCursorPosition(cell.CellX, cell.CellY);
-                Console.ForegroundColor = cell.GetTopTile().TileColor;
-                Console.Write(cell.GetTopTile().TileTexture);
+                cell.GetTopTile().Draw();
             }
         }
 

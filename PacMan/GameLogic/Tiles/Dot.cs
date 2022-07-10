@@ -1,5 +1,4 @@
 ﻿using System;
-using GameContent;
 
 namespace PacMan.GameLogic.Tiles
 {
@@ -7,8 +6,7 @@ namespace PacMan.GameLogic.Tiles
     {
         public static event Action OnDotEaten;
 
-        public Dot(int x, int y)
-            : base(x, y, TileVisuals.DOT_TILE, TileVisuals.DOT_COLOR) { }
+        public Dot(int x, int y) : base(x, y) { }
 
         public override void Process()
         {

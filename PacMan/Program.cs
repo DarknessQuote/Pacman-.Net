@@ -1,5 +1,4 @@
-﻿using System;
-using PacMan.GameApplication;
+﻿using PacMan.GameApplication;
 
 namespace PacMan
 {

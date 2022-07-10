@@ -1,5 +1,4 @@
 ﻿using System;
-using GameContent;
 using PacMan.GameLogic.Tiles;
 using PacMan.GameLogic.Entities.GhostAi;
 
@@ -8,8 +7,10 @@ namespace PacMan.GameLogic.Entities
     class Ghost : Entity
     {
         private GhostBehaviour behaviour;
-        private readonly ConsoleColor mainColor;
         private int stateSwitchCounter = 0;
+
+        public static event Action<Tile> OnFrightenedStart;
+        public static event Action<Tile> OnFrightenedEnd;
 
         public GhostState State { get; private set; } = GhostState.Scatter;
         public Direction OppositeDirection
@@ -34,21 +35,21 @@ namespace PacMan.GameLogic.Entities
             switch (name)
             {
                 case "Blinky":
-                    Ghost blinky = new(maze, pacman, maze.RedStartingCoords);
-                    blinky.behaviour = new RedGhostBehaviour(blinky);
-                    return blinky;
+                    Ghost red = new(maze, pacman, maze.RedStartingCoords);
+                    red.behaviour = new RedGhostBehaviour(red);
+                    return red;
                 case "Pinky":
-                    Ghost pinky = new(maze, pacman, maze.PinkStartingCoords);
-                    pinky.behaviour = new PinkGhostBehaviour(pinky);
-                    return pinky;
+                    Ghost pink = new(maze, pacman, maze.PinkStartingCoords);
+                    pink.behaviour = new PinkGhostBehaviour(pink);
+                    return pink;
                 case "Inky":
-                    Ghost inky = new(maze, pacman, maze.CyanStartingCoords);
-                    inky.behaviour = new CyanGhostBehaviour(inky);
-                    return inky;
+                    Ghost cyan = new(maze, pacman, maze.CyanStartingCoords);
+                    cyan.behaviour = new CyanGhostBehaviour(cyan);
+                    return cyan;
                 case "Clyde":
-                    Ghost clyde = new(maze, pacman, maze.OrangeStartingCoords);
-                    clyde.behaviour = new OrangeGhostBehaviour(clyde);
-                    return clyde;
+                    Ghost orange = new(maze, pacman, maze.OrangeStartingCoords);
+                    orange.behaviour = new OrangeGhostBehaviour(orange);
+                    return orange;
                 default:
                     throw new Exception("Invalid Ghost name");
             }
@@ -58,7 +59,6 @@ namespace PacMan.GameLogic.Entities
             : base (maze, startingCoords)
         {
             PacmanTarget = pacman;
-            mainColor = controlledTile.TileColor;
             PowerPellet.OnPowerPelletEaten += () => SwitchState(GhostState.Frightened);
         }
 
@@ -67,17 +67,16 @@ namespace PacMan.GameLogic.Entities
             base.ReturnToStartingCoords();
             SwitchState(GhostState.Scatter);
         }
+
         public void SwitchState(GhostState gState)
         {
             if (gState == GhostState.Frightened)
             {
-                controlledTile.TileTexture = TileVisuals.SCARED_GHOST_TILE;
-                controlledTile.TileColor = TileVisuals.SCARED_GHOST_COLOR;
+                OnFrightenedStart?.Invoke(controlledTile);
             }
-            else
+            else if (State == GhostState.Frightened && gState != GhostState.Frightened)
             {
-                controlledTile.TileTexture = TileVisuals.GHOST_TILE;
-                controlledTile.TileColor = mainColor;
+                OnFrightenedEnd?.Invoke(controlledTile);                
             }
 
             State = gState;

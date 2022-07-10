@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using PacMan.GameLogic.Entities;
+﻿using PacMan.GameLogic.Entities;
 using PacMan.GameLogic.Tiles;
 
 namespace PacMan.GameLogic

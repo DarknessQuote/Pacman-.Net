@@ -1,5 +1,4 @@
 ﻿using System;
-using GameContent;
 
 namespace PacMan.GameLogic.Tiles
 {
@@ -7,8 +6,7 @@ namespace PacMan.GameLogic.Tiles
     {
         public static event Action OnPowerPelletEaten;
 
-        public PowerPellet(int x, int y)
-            : base(x, y, TileVisuals.POWER_PELLET_TILE, TileVisuals.POWER_PELLET_COLOR) { }
+        public PowerPellet(int x, int y) : base(x, y) { }
 
         public override void Process()
         {

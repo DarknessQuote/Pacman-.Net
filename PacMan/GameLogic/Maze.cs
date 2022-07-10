@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using PacMan.GameLogic.Tiles;
 
 namespace PacMan.GameLogic

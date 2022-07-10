@@ -1,20 +1,15 @@
-﻿using System;
-
-namespace PacMan.GameLogic.Tiles
+﻿namespace PacMan.GameLogic.Tiles
 {
     abstract class Tile
     {
-        public char TileTexture { get; set; }
-        public ConsoleColor TileColor { get; set; }
+        public IVisual Visual { get; set; }
         public int CoordX { get; set; }
         public int CoordY { get; set; }
 
-        public Tile(int x, int y, char texture, ConsoleColor color)
+        public Tile(int x, int y)
         {
             CoordX = x;
             CoordY = y;
-            TileTexture = texture;
-            TileColor = color;
         }
 
         public static Tile CreateTile(char tile, int x, int y)
@@ -32,6 +27,10 @@ namespace PacMan.GameLogic.Tiles
                 _ => new EmptyTile(x, y)
             };
         }
+
+        public void Draw() => Visual.Draw();
+
+        public void ChangeVisual(IVisual newVisual) => Visual = newVisual; 
 
         public virtual void Process() { }
     }

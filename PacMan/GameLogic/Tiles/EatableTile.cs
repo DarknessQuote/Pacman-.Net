@@ -1,5 +1,4 @@
 ﻿using System;
-using GameContent;
 
 namespace PacMan.GameLogic.Tiles
 {
@@ -7,20 +6,20 @@ namespace PacMan.GameLogic.Tiles
     {
         public static event Action EatableTileCreated;
         public static event Action EatableTileEaten;
+        public static event Action<EatableTile> ChangeTileVisual;
 
         public bool IsEaten { get; set; } = false;
 
-        public EatableTile(int x, int y, char texture, ConsoleColor color) :
-            base(x, y, texture, color) 
+        public EatableTile(int x, int y) : base(x, y) 
         {
             EatableTileCreated?.Invoke();
         }
 
         protected void Eat()
         {
-            TileTexture = TileVisuals.EMPTY_TILE;
             IsEaten = true;
             EatableTileEaten?.Invoke();
+            ChangeTileVisual?.Invoke(this);
         }
     }
 }

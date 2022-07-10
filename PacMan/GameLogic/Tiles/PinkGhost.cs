@@ -1,5 +1,4 @@
 ﻿using System;
-using GameContent;
 
 namespace PacMan.GameLogic.Tiles
 {
@@ -7,8 +6,7 @@ namespace PacMan.GameLogic.Tiles
     {
         public static event Action<Tile> PinkGTileCreated;
 
-        public PinkGhost(int x, int y)
-            : base(x, y, TileVisuals.GHOST_TILE, TileVisuals.PINK_GHOST_COLOR)
+        public PinkGhost(int x, int y) : base(x, y)
         {
             PinkGTileCreated?.Invoke(this);
         }
