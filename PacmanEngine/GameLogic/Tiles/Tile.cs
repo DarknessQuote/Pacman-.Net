@@ -28,7 +28,7 @@
             };
         }
 
-        public void Draw() => Visual.Draw();
+        public void Draw() => Visual.Draw(CoordX, CoordY);
 
         public void ChangeVisual(IVisual newVisual) => Visual = newVisual; 
 

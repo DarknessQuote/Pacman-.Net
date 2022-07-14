@@ -14,8 +14,9 @@ namespace PacmanConsole.ConsoleUI
             this.color = color;
         }
 
-        public void Draw()
+        public void Draw(int x, int y)
         {
+            Console.SetCursorPosition(x, y);
             Console.ForegroundColor = color;
             Console.Write(texture);
         }

@@ -89,7 +89,6 @@ namespace PacmanConsole.ConsoleUI.Screens
         {
             foreach (Cell cell in maze)
             {
-                Console.SetCursorPosition(cell.CellX, cell.CellY);
                 cell.GetTopTile().Draw();
             }
         }
