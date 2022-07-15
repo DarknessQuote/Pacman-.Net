@@ -15,14 +15,14 @@ namespace PacmanEngine.GameLogic.Entities
             base.ReturnToStartingCoords();
             NewDirection = Direction.NONE;
         }
-        public void ChangeDirection(ConsoleKey input)
+        public void ChangeDirection(int keyCode)
         {
-            NewDirection = input switch
+            NewDirection = keyCode switch
             {
-                ConsoleKey.W => Direction.UP,
-                ConsoleKey.A => Direction.LEFT,
-                ConsoleKey.D => Direction.RIGHT,
-                ConsoleKey.S => Direction.DOWN,
+                87 => Direction.UP,    // W key
+                65 => Direction.LEFT,  // A key
+                68 => Direction.RIGHT, // D key
+                83 => Direction.DOWN,  // S key
                 _ => CurrentDirection
             };
         }

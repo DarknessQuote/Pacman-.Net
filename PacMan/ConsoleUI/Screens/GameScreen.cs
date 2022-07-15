@@ -75,14 +75,13 @@ namespace PacmanConsole.ConsoleUI.Screens
                 case (ConsoleKey.A):
                 case (ConsoleKey.S):
                 case (ConsoleKey.D):
-                    gameScene.player.ChangeDirection(key);
+                    gameScene.player.ChangeDirection((int)key);
                     break;
                 case (ConsoleKey.P):
                     if (isPaused) isPaused = false;
                     else isPaused = true;
                     break;
             }
-            gameScene.player.ChangeDirection(key);
         }
 
         private void RenderMaze()
