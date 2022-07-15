@@ -19,27 +19,27 @@ namespace PacmanEngine.GameLogic
             Lives = 3;
         }
 
-        public void AddScore(int score)
+        internal void AddScore(int score)
         {
             Score += score;
             OnScoreChange?.Invoke();
         }
 
-        public void RemoveLife()
+        internal void RemoveLife()
         {
             Lives--;
             OnLivesChange?.Invoke();
         }
 
-        public void IncreaseGamesWonCounter() => GamesWon++;
+        internal void IncreaseGamesWonCounter() => GamesWon++;
 
-        public void RewardForEatenGhost()
+        internal void RewardForEatenGhost()
         {
             GhostsEaten++;
             AddScore(200);
         }
 
-        public void UpdateFinalScore()
+        internal void UpdateFinalScore()
         {
             Score += Lives * 200;
         }

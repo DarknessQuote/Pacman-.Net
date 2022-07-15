@@ -8,13 +8,13 @@ namespace PacmanEngine.GameLogic
     {
         private readonly Cell[,] map;
 
-        public Tile RedGhostTile { get; private set; }
-        public (int X, int Y) PacmanStartingCoords { get; private set; }
-        public (int X, int Y) RedStartingCoords { get; private set; }
-        public (int X, int Y) PinkStartingCoords { get; private set; }
-        public (int X, int Y) CyanStartingCoords { get; private set; }
-        public (int X, int Y) OrangeStartingCoords { get; private set; }
-        public int DotCount { get; private set; }
+        internal Tile RedGhostTile { get; private set; }
+        internal (int X, int Y) PacmanStartingCoords { get; private set; }
+        internal (int X, int Y) RedStartingCoords { get; private set; }
+        internal (int X, int Y) PinkStartingCoords { get; private set; }
+        internal (int X, int Y) CyanStartingCoords { get; private set; }
+        internal (int X, int Y) OrangeStartingCoords { get; private set; }
+        internal int DotCount { get; private set; }
         public int Width { get => map.GetLength(0); }
         public int Height { get => map.GetLength(1); }        
 
@@ -43,7 +43,7 @@ namespace PacmanEngine.GameLogic
         public Maze()
         {
             HookEventsToMaze();
-            char[,] mapLayout = MapLoader.LoadMapLayout(@"GameContent\PacmanMap.txt");
+            char[,] mapLayout = MapLoader.LoadMapLayout("PacmanMap.txt");
             map = new Cell[mapLayout.GetLength(0), mapLayout.GetLength(1)];
             FillMap(mapLayout);            
         }

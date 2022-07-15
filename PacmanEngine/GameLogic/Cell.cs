@@ -7,10 +7,10 @@ namespace PacmanEngine.GameLogic
     public class Cell : IEnumerable<Tile>
     {
         private readonly List<Tile> tilesInCell;
-        public int CellX { get; private set; }
-        public int CellY { get; private set; }
+        internal int CellX { get; private set; }
+        internal int CellY { get; private set; }
         public Tile TopTile { get => tilesInCell[^1]; }
-        public bool IsWall { get => tilesInCell[0] is Wall; }
+        internal bool IsWall { get => tilesInCell[0] is Wall; }
 
         public Cell(int x, int y)
         {
@@ -19,12 +19,12 @@ namespace PacmanEngine.GameLogic
             CellY = y;
         }
 
-        public void AddTile(Tile tile)
+        internal void AddTile(Tile tile)
         {
             tilesInCell.Add(tile);
         }
 
-        public void RemoveTile(Tile tile)
+        internal void RemoveTile(Tile tile)
         {
             tilesInCell.Remove(tile);
         }

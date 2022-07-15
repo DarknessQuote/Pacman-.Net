@@ -5,11 +5,11 @@ namespace PacmanEngine.GameLogic.Entities
     public abstract class Entity
     {
         protected Tile controlledTile;
-        public Maze Maze { get; private set; }
+        internal Maze Maze { get; private set; }
         protected (int X, int Y) StartingCoords { get; set; }
-        public Direction CurrentDirection { get; protected set; } = Direction.NONE;
-        public Cell CurrentCell { get => Maze[controlledTile.CoordX, controlledTile.CoordY]; }
-        public Cell NextCell { get => GetNextCell(CurrentDirection); }
+        protected internal Direction CurrentDirection { get; protected set; } = Direction.NONE;
+        internal Cell CurrentCell { get => Maze[controlledTile.CoordX, controlledTile.CoordY]; }
+        internal Cell NextCell { get => GetNextCell(CurrentDirection); }
 
         public Entity(Maze maze, (int X, int Y) startingCoords)
         {
@@ -18,20 +18,20 @@ namespace PacmanEngine.GameLogic.Entities
             controlledTile = maze[startingCoords.X, startingCoords.Y].TopTile;
         }
 
-        public void Update()
+        internal void Update()
         {
             CurrentDirection = GetDirection();
             MoveToCell(NextCell);
             ProcessCell();
         }
 
-        public virtual void ReturnToStartingCoords()
+        internal virtual void ReturnToStartingCoords()
         {
             MoveToCell(Maze[StartingCoords.X, StartingCoords.Y]);
             CurrentDirection = Direction.NONE;
         }
 
-        public Cell GetNextCell(Direction direction, int distance = 1)
+        internal Cell GetNextCell(Direction direction, int distance = 1)
         {
             return direction switch
             {

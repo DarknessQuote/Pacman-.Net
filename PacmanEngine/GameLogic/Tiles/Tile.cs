@@ -3,8 +3,8 @@
     public abstract class Tile
     {
         public IVisual Visual { get; set; }
-        public int CoordX { get; set; }
-        public int CoordY { get; set; }
+        internal int CoordX { get; set; }
+        internal int CoordY { get; set; }
 
         public Tile(int x, int y)
         {
@@ -12,7 +12,7 @@
             CoordY = y;
         }
 
-        public static Tile CreateTile(char tile, int x, int y)
+        internal static Tile CreateTile(char tile, int x, int y)
         {
             return tile switch
             {
@@ -30,8 +30,6 @@
 
         public void Draw() => Visual.Draw(CoordX, CoordY);
 
-        public void ChangeVisual(IVisual newVisual) => Visual = newVisual; 
-
-        public virtual void Process() { }
+        internal virtual void Process() { }
     }
 }

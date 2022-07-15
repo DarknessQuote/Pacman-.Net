@@ -16,7 +16,7 @@ namespace PacmanEngine.GameLogic.Entities.GhostAi
             this.ghost = ghost;
         }
 
-        public Direction GetDirection()
+        internal Direction GetDirection()
         {
             List<Direction> availableDirections = GetAllAvailableDirections();
 

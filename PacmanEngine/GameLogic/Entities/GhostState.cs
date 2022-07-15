@@ -1,6 +1,6 @@
 ﻿namespace PacmanEngine.GameLogic.Entities
 {
-    public enum GhostState
+    internal enum GhostState
     {
         Chase,
         Scatter,

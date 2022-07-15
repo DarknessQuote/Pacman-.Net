@@ -12,8 +12,8 @@ namespace PacmanEngine.GameLogic.Entities
         public static event Action<Tile> OnFrightenedStart;
         public static event Action<Tile> OnFrightenedEnd;
 
-        public GhostState State { get; private set; } = GhostState.Scatter;
-        public Direction OppositeDirection
+        internal GhostState State { get; private set; } = GhostState.Scatter;
+        internal Direction OppositeDirection
         {
             get
             {
@@ -27,10 +27,10 @@ namespace PacmanEngine.GameLogic.Entities
                 };
             }
         }
-        public Player PacmanTarget { get; private set; }
+        internal Player PacmanTarget { get; private set; }
 
 
-        public static Ghost GetGhost(string name, Maze maze, Player pacman)
+        internal static Ghost GetGhost(string name, Maze maze, Player pacman)
         {
             switch (name)
             {
@@ -62,13 +62,13 @@ namespace PacmanEngine.GameLogic.Entities
             PowerPellet.OnPowerPelletEaten += () => SwitchState(GhostState.Frightened);
         }
 
-        public override void ReturnToStartingCoords()
+        internal override void ReturnToStartingCoords()
         {
             base.ReturnToStartingCoords();
             SwitchState(GhostState.Scatter);
         }
 
-        public void SwitchState(GhostState gState)
+        internal void SwitchState(GhostState gState)
         {
             if (gState == GhostState.Frightened)
             {

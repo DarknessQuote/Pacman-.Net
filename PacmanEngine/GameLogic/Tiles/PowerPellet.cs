@@ -8,7 +8,7 @@ namespace PacmanEngine.GameLogic.Tiles
 
         public PowerPellet(int x, int y) : base(x, y) { }
 
-        public override void Process()
+        internal override void Process()
         {
             if (!IsEaten)
             {

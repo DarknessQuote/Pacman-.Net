@@ -8,7 +8,7 @@ namespace PacmanEngine.GameLogic.Tiles
         public static event Action EatableTileEaten;
         public static event Action<EatableTile> ChangeTileVisual;
 
-        public bool IsEaten { get; set; } = false;
+        internal bool IsEaten { get; set; } = false;
 
         public EatableTile(int x, int y) : base(x, y) 
         {

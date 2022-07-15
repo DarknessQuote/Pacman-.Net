@@ -4,7 +4,7 @@ namespace PacmanEngine
 {
     static class MapLoader
     {
-        public static char[,] LoadMapLayout(string pathToMap)
+        internal static char[,] LoadMapLayout(string pathToMap)
         {
             string[] rows = File.ReadAllLines(pathToMap);
             char[,] matrix = new char[rows[0].Length, rows.Length];

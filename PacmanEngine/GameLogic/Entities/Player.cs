@@ -10,11 +10,12 @@ namespace PacmanEngine.GameLogic.Entities
         public Player(Maze maze) 
             : base(maze, maze.PacmanStartingCoords) { }
 
-        public override void ReturnToStartingCoords()
+        internal override void ReturnToStartingCoords()
         {
             base.ReturnToStartingCoords();
             NewDirection = Direction.NONE;
         }
+
         public void ChangeDirection(int keyCode)
         {
             NewDirection = keyCode switch
