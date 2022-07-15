@@ -2,6 +2,6 @@
 {
     public interface IVisual
     {
-        public void Draw();
+        public void Draw(int x, int y);
     }
 }

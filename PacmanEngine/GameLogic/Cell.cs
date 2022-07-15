@@ -9,6 +9,7 @@ namespace PacmanEngine.GameLogic
         private readonly List<Tile> tilesInCell;
         public int CellX { get; private set; }
         public int CellY { get; private set; }
+        public Tile TopTile { get => tilesInCell[^1]; }
         public bool IsWall { get => tilesInCell[0] is Wall; }
 
         public Cell(int x, int y)
@@ -16,11 +17,6 @@ namespace PacmanEngine.GameLogic
             tilesInCell = new List<Tile>();
             CellX = x;
             CellY = y;
-        }
-
-        public Tile GetTopTile()
-        {
-            return tilesInCell[^1];
         }
 
         public void AddTile(Tile tile)
