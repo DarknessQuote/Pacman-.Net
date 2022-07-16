@@ -1,4 +1,5 @@
-﻿using PacmanEngine.GameLogic.Tiles;
+﻿using System;
+using PacmanEngine.GameLogic.Tiles;
 
 namespace PacmanEngine.GameLogic.Entities
 {
@@ -10,6 +11,9 @@ namespace PacmanEngine.GameLogic.Entities
         protected internal Direction CurrentDirection { get; protected set; } = Direction.NONE;
         internal Cell CurrentCell { get => Maze[controlledTile.CoordX, controlledTile.CoordY]; }
         internal Cell NextCell { get => GetNextCell(CurrentDirection); }
+        internal Cell PreviousCell { get; set; }
+
+        public static event Action<Cell, Cell> OnEntityMoved;
 
         public Entity(Maze maze, (int X, int Y) startingCoords)
         {
@@ -21,13 +25,17 @@ namespace PacmanEngine.GameLogic.Entities
         internal void Update()
         {
             CurrentDirection = GetDirection();
+            PreviousCell = CurrentCell;
             MoveToCell(NextCell);
             ProcessCell();
+            OnEntityMoved?.Invoke(CurrentCell, PreviousCell);
         }
 
         internal virtual void ReturnToStartingCoords()
         {
+            PreviousCell = CurrentCell;
             MoveToCell(Maze[StartingCoords.X, StartingCoords.Y]);
+            OnEntityMoved?.Invoke(CurrentCell, PreviousCell);
             CurrentDirection = Direction.NONE;
         }
 

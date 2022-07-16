@@ -35,6 +35,11 @@ namespace PacmanEngine.GameLogic
 
             Dot.OnDotEaten += () => Stats.AddScore(10);
             PowerPellet.OnPowerPelletEaten += () => Stats.AddScore(50);
+            Entity.OnEntityMoved += (cell1, cell2) =>
+            {
+                cell1.TopTile.Draw();
+                cell2.TopTile.Draw();
+            };
         }
 
         public void UpdateGameState()

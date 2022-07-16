@@ -46,7 +46,6 @@ namespace PacmanConsole.ConsoleUI.Screens
             if (!isPaused)
             {
                 gameScene.UpdateGameState();
-                RenderMaze();
                 switch (gameScene.State)
                 {
                     case (GameState.Playing):
