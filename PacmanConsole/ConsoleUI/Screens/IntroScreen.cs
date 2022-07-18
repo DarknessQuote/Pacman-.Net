@@ -1,5 +1,5 @@
 ﻿using System;
-using PacmanEngine;
+using System.IO;
 
 namespace PacmanConsole.ConsoleUI.Screens
 {
@@ -29,7 +29,7 @@ namespace PacmanConsole.ConsoleUI.Screens
 
             Console.SetCursorPosition(0, 2);
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write(TextFileReader.ReadFromFile(@"GameContent\IntroPicture.txt"));
+            Console.Write(File.ReadAllText(@"Resources\IntroPicture.txt"));
             Console.ResetColor();
         }
 

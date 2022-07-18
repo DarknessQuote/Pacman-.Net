@@ -16,7 +16,7 @@ namespace PacMan
 
         static void GameLoop()
         {
-            int frameRate = 150;
+            int frameRate = 120;
             Renderer renderer = new();
             var sw = new Stopwatch();
 

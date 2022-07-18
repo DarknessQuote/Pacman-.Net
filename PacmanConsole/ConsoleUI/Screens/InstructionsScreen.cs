@@ -1,5 +1,5 @@
 ﻿using System;
-using PacmanEngine;
+using System.IO;
 
 namespace PacmanConsole.ConsoleUI.Screens
 {
@@ -20,7 +20,7 @@ namespace PacmanConsole.ConsoleUI.Screens
                 Console.SetWindowSize(125, 18);
                 Console.SetBufferSize(125, 18);
             }
-            Console.Write(TextFileReader.ReadFromFile(@"GameContent\Instructions.txt"));
+            Console.Write(File.ReadAllText(@"Resources\Instructions.txt"));
         }
 
         public void Render() { }

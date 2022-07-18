@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace PacmanEngine
+namespace PacmanEngine.Maps
 {
     static class MapLoader
     {

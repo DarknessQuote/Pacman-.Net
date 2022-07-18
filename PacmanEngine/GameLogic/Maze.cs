@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using PacmanEngine.Maps;
 using PacmanEngine.GameLogic.Tiles;
 
 namespace PacmanEngine.GameLogic
@@ -7,6 +8,7 @@ namespace PacmanEngine.GameLogic
     public class Maze : IEnumerable
     {
         private readonly Cell[,] map;
+        private readonly char[,] startingLayout;
 
         internal Tile RedGhostTile { get; private set; }
         internal (int X, int Y) PacmanStartingCoords { get; private set; }
@@ -40,12 +42,18 @@ namespace PacmanEngine.GameLogic
             }
         }
 
-        public Maze()
+        public Maze(string pathToMap)
         {
             HookEventsToMaze();
-            char[,] mapLayout = MapLoader.LoadMapLayout("PacmanMap.txt");
+            char[,] mapLayout = MapLoader.LoadMapLayout(pathToMap);
+            startingLayout = mapLayout;
             map = new Cell[mapLayout.GetLength(0), mapLayout.GetLength(1)];
-            FillMap(mapLayout);            
+            FillMap(mapLayout);
+        }
+
+        public void Restart()
+        {
+            FillMap(startingLayout);
         }
 
         private void FillMap(char[,] layout)

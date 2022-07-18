@@ -3,7 +3,7 @@ If you are reading this, you must be new at this game, so here are the rules.
 
 You are playing as Pacman, a yellow round fella, and your goal is to eat all dots in the maze. Sounds simple, right?
 Well, the bad news is that there are also four evil ghosts who want to catch you and tear your soul apart. Scary stuff.
-So let's restate you goal: you need to eat all dots and AND not to get eaten by ghosts.
+So let's restate your goal: you need to eat all dots AND not to get eaten by ghosts.
 
 There are four Power Pellets in the maze to help you in your task.
 When you eat one of them, every ghost temporarily becomes vulnerable and not dangerous to player.

@@ -1,5 +1,6 @@
 ﻿using System;
-using PacmanEngine;
+using System.IO;
+using PacmanEngine.GameLogic;
 
 namespace PacmanConsole.ConsoleUI.Screens
 {
@@ -13,13 +14,12 @@ namespace PacmanConsole.ConsoleUI.Screens
         private readonly int gamesWonDisplay;
         private readonly int ghostsEatenDisplay;
 
-        public DefeatScreen(Renderer renderer, int score, int gamesWon, int ghostsEaten)
+        public DefeatScreen(Renderer renderer, GameStats gameStats)
         {
             this.renderer = renderer;
-
-            scoreDisplay = score;
-            gamesWonDisplay = gamesWon;
-            ghostsEatenDisplay = ghostsEaten;
+            scoreDisplay = gameStats.Score;
+            gamesWonDisplay = gameStats.GamesWon;
+            ghostsEatenDisplay = gameStats.GhostsEaten;
         }
 
         public void OnLoad()
@@ -33,7 +33,7 @@ namespace PacmanConsole.ConsoleUI.Screens
             }
 
             Console.SetCursorPosition(0, 2);
-            Console.WriteLine(TextFileReader.ReadFromFile(@"GameContent\DefeatPicture.txt"));
+            Console.WriteLine(File.ReadAllText(@"Resources\DefeatPicture.txt"));
 
             Console.WriteLine("\nSorry, but you lost");
             Console.WriteLine($"Final score: {scoreDisplay}");

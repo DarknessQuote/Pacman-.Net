@@ -23,7 +23,7 @@ namespace PacmanConsole.ConsoleUI.Screens
         public GameScreen(Renderer renderer)
         {
             this.renderer = renderer;
-            maze = new Maze();
+            maze = new Maze(@"Maps\Map1.txt");
             TileVisualiser.AttachVisualsToTiles(maze);
 
             gameStats = new GameStats();
@@ -37,7 +37,10 @@ namespace PacmanConsole.ConsoleUI.Screens
         {
             Console.Clear();
             ChangeWindowSize();
-            RenderMaze();
+            foreach (Cell cell in maze)
+            {
+                cell.TopTile.Draw();
+            }
             RenderScoreAndLivesLabels();
         }
 
@@ -52,7 +55,7 @@ namespace PacmanConsole.ConsoleUI.Screens
                         return;
                     case (GameState.Won):
                         DoGameEndingAnimation();
-                        maze = new Maze();
+                        maze = new Maze(@"Maps\Map1.txt");
                         TileVisualiser.AttachVisualsToTiles(maze);
                         gameScene = new GameScene(maze, gameStats);
                         OnLoad();
@@ -60,7 +63,7 @@ namespace PacmanConsole.ConsoleUI.Screens
                     case (GameState.Lost):
                         DoGameEndingAnimation();
                         renderer.SwitchScreens(
-                            new DefeatScreen(renderer, gameStats.Score, gameStats.GamesWon, gameStats.GhostsEaten));
+                            new DefeatScreen(renderer, gameStats));
                         break;
                 }
             }
@@ -80,14 +83,6 @@ namespace PacmanConsole.ConsoleUI.Screens
                     if (isPaused) isPaused = false;
                     else isPaused = true;
                     break;
-            }
-        }
-
-        private void RenderMaze()
-        {
-            foreach (Cell cell in maze)
-            {
-                cell.TopTile.Draw();
             }
         }
 
