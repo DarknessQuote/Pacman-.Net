@@ -98,7 +98,7 @@ namespace PacmanWinforms.Forms
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(166, 51);
             this.label1.TabIndex = 4;
-            this.label1.Text = "PACMAN";
+            this.label1.Text = "Pac-Man";
             // 
             // MenuForm
             // 
@@ -114,7 +114,7 @@ namespace PacmanWinforms.Forms
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MenuForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Pacman";
+            this.Text = "Pac-Man";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

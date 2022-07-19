@@ -9,7 +9,7 @@ namespace PacMan
     {
         static void Main()
         {
-            Console.Title = "PacMan";
+            Console.Title = "Pac-Man";
             Console.CursorVisible = false;
             GameLoop();
         }

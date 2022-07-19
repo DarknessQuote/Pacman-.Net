@@ -114,7 +114,7 @@ namespace PacmanWinforms.Forms
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MapSelectForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Pacman";
+            this.Text = "Pac-Man";
             this.ResumeLayout(false);
             this.PerformLayout();
 
