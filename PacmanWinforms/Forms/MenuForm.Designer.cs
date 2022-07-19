@@ -94,9 +94,9 @@ namespace PacmanWinforms.Forms
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Consolas", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.Gold;
-            this.label1.Location = new System.Drawing.Point(191, 135);
+            this.label1.Location = new System.Drawing.Point(180, 135);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(166, 51);
+            this.label1.Size = new System.Drawing.Size(190, 51);
             this.label1.TabIndex = 4;
             this.label1.Text = "Pac-Man";
             // 

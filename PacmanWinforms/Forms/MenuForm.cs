@@ -27,7 +27,7 @@ namespace PacmanWinforms.Forms
 
         private void InstructionsButton_Click(object sender, EventArgs e)
         {
-            InstructionsScreen instruct = new();
+            InstructionsForm instruct = new();
             instruct.ShowDialog();
         }
 
