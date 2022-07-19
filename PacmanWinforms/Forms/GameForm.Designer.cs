@@ -36,6 +36,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.scoreLabel = new System.Windows.Forms.Label();
             this.livesLabel = new System.Windows.Forms.Label();
+            this.pauseLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // mapPanel
@@ -95,12 +96,25 @@
             this.livesLabel.Size = new System.Drawing.Size(0, 29);
             this.livesLabel.TabIndex = 4;
             // 
+            // pauseLabel
+            // 
+            this.pauseLabel.AutoSize = true;
+            this.pauseLabel.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.pauseLabel.ForeColor = System.Drawing.Color.DarkRed;
+            this.pauseLabel.Location = new System.Drawing.Point(406, 204);
+            this.pauseLabel.Name = "pauseLabel";
+            this.pauseLabel.Size = new System.Drawing.Size(104, 32);
+            this.pauseLabel.TabIndex = 5;
+            this.pauseLabel.Text = "PAUSED";
+            this.pauseLabel.Visible = false;
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(529, 459);
+            this.Controls.Add(this.pauseLabel);
             this.Controls.Add(this.livesLabel);
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.label2);
@@ -125,6 +139,7 @@
         private System.Windows.Forms.Label scoreLabel;
         private System.Windows.Forms.Panel mapPanel;
         private System.Windows.Forms.Label livesLabel;
+        private System.Windows.Forms.Label pauseLabel;
     }
 }
 

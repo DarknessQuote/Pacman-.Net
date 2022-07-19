@@ -10,7 +10,7 @@ namespace PacmanConsole.ConsoleUI.Screens
         private readonly GameStats gameStats;
         private Maze maze;
         private GameScene gameScene;
-        private bool isPaused;
+        private bool isPaused = false;
 
         private int screenWidth;
         private int screenHeight;
@@ -79,9 +79,8 @@ namespace PacmanConsole.ConsoleUI.Screens
                 case (ConsoleKey.D):
                     gameScene.player.ChangeDirection((int)key);
                     break;
-                case (ConsoleKey.P):
-                    if (isPaused) isPaused = false;
-                    else isPaused = true;
+                case (ConsoleKey.Escape):
+                    isPaused = !isPaused;
                     break;
             }
         }

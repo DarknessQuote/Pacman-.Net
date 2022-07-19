@@ -14,7 +14,7 @@ namespace PacmanWinforms.Forms
 {
     public partial class GameForm : Form
     {
-        Maze maze;
+        readonly Maze maze;
         GameScene gameScene;
         GameStats gameStats;
         TileSpriter spriter;
@@ -78,6 +78,7 @@ namespace PacmanWinforms.Forms
             if (e.KeyCode == Keys.Escape)
             {
                 gameTimer.Enabled = !(gameTimer.Enabled);
+                pauseLabel.Visible = !(pauseLabel.Visible);
             }
             else
             {
