@@ -16,7 +16,7 @@ namespace PacmanWinforms.Forms
     {
         readonly Maze maze;
         GameScene gameScene;
-        GameStats gameStats;
+        Statistics gameStats;
         TileSpriter spriter;
         bool isDrawn = false;
 
@@ -88,7 +88,7 @@ namespace PacmanWinforms.Forms
 
         private void GameWindow_Load(object sender, EventArgs e)
         {
-            gameStats = new GameStats();
+            gameStats = new Statistics();
             gameScene = new(maze, gameStats);
             spriter = new(mapPanel.CreateGraphics());
             spriter.AttachSpritesToTiles(maze);

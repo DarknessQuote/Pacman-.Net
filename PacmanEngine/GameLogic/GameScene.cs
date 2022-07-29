@@ -16,12 +16,12 @@ namespace PacmanEngine.GameLogic
         private readonly Ghost[] ghosts;
 
         public GameState State { get; private set; } = GameState.Playing;
-        public GameStats Stats { get; private set; }
+        public Statistics Statistics { get; private set; }
 
-        public GameScene(Maze maze, GameStats startingStats)
+        public GameScene(Maze maze, Statistics startingStats)
         {
             this.maze = maze;
-            Stats = startingStats;
+            Statistics = startingStats;
 
             entities = new Entity[]
             {
@@ -33,8 +33,8 @@ namespace PacmanEngine.GameLogic
             };
             ghosts = new Ghost[] { blinky, pinky, inky, clyde };
 
-            Dot.OnDotEaten += () => Stats.AddScore(10);
-            PowerPellet.OnPowerPelletEaten += () => Stats.AddScore(50);
+            Dot.OnDotEaten += () => Statistics.AddScore(10);
+            PowerPellet.OnPowerPelletEaten += () => Statistics.AddScore(50);
             Entity.OnEntityMoved += (cell1, cell2) =>
             {
                 cell1.TopTile.Draw();
@@ -54,8 +54,8 @@ namespace PacmanEngine.GameLogic
 
             if (maze.DotCount == 0 && State != GameState.Lost)
             {
-                Stats.UpdateFinalScore();
-                Stats.IncreaseGamesWonCounter();
+                Statistics.UpdateFinalScore();
+                Statistics.IncreaseGamesWonCounter();
                 State = GameState.Won;
             }
         }
@@ -76,12 +76,12 @@ namespace PacmanEngine.GameLogic
             if (ghost.State == GhostState.Frightened)
             {
                 ghost.ReturnToStartingCoords();
-                Stats.RewardForEatenGhost();
+                Statistics.RewardForEatenGhost();
             }
             else
             {
-                Stats.RemoveLife();
-                if (Stats.Lives == 0)
+                Statistics.RemoveLife();
+                if (Statistics.Lives == 0)
                 {
                     State = GameState.Lost;
                     return;

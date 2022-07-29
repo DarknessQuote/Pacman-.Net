@@ -10,7 +10,7 @@
 
         private Cell GetOrangeChaseCell()
         {
-            if (CalculateDistanceBetweenCells(ghost.CurrentCell, ghost.PacmanTarget.CurrentCell) <= 8)
+            if (DistanceBetweenCells(ghost.CurrentCell, ghost.PacmanTarget.CurrentCell) <= 8)
             {
                 return ScatterCell;
             }

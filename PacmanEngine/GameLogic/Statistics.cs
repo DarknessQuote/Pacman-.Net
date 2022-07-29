@@ -2,7 +2,7 @@
 
 namespace PacmanEngine.GameLogic
 {
-    public class GameStats
+    public class Statistics
     {
         public int Score { get; private set; }
         public int Lives { get; private set; }
@@ -12,7 +12,7 @@ namespace PacmanEngine.GameLogic
         public event Action OnScoreChange;
         public event Action OnLivesChange;
 
-        public GameStats()
+        public Statistics()
         {
             Score = 0;
             GamesWon = 0;

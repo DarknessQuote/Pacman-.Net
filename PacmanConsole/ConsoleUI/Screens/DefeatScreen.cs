@@ -14,7 +14,7 @@ namespace PacmanConsole.ConsoleUI.Screens
         private readonly int gamesWonDisplay;
         private readonly int ghostsEatenDisplay;
 
-        public DefeatScreen(Renderer renderer, GameStats gameStats)
+        public DefeatScreen(Renderer renderer, Statistics gameStats)
         {
             this.renderer = renderer;
             scoreDisplay = gameStats.Score;

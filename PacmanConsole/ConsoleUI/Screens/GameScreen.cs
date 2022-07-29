@@ -7,7 +7,7 @@ namespace PacmanConsole.ConsoleUI.Screens
     class GameScreen : IScreen
     {
         private readonly Renderer renderer;
-        private readonly GameStats gameStats;
+        private readonly Statistics gameStats;
         private Maze maze;
         private GameScene gameScene;
         private bool isPaused = false;
@@ -26,7 +26,7 @@ namespace PacmanConsole.ConsoleUI.Screens
             maze = new Maze(@"Maps\Map1.txt");
             TileVisualiser.AttachVisualsToTiles(maze);
 
-            gameStats = new GameStats();
+            gameStats = new Statistics();
             gameScene = new GameScene(maze, gameStats);
 
             gameStats.OnScoreChange += () => RenderScore();

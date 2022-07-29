@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PacmanWinforms.Forms
 {
-    public partial class InstructionsScreen : Form
+    public partial class InstructionsForm : Form
     {
-        public InstructionsScreen()
+        public InstructionsForm()
         {
             InitializeComponent();
         }

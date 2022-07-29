@@ -6,7 +6,7 @@ namespace PacmanWinforms.Forms
 {
     public partial class DefeatForm : Form
     {
-        public DefeatForm(GameStats stats)
+        public DefeatForm(Statistics stats)
         {
             InitializeComponent();
 

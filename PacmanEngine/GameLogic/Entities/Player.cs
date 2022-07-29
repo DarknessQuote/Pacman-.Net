@@ -30,10 +30,17 @@ namespace PacmanEngine.GameLogic.Entities
 
         protected override Direction GetDirection()
         {
-            if (!GetNextCell(NewDirection).IsWall) return NewDirection;
-            if (NextCell.IsWall) return Direction.NONE;
-            return CurrentDirection;
+            if (!GetNextCell(NewDirection).IsWall)
+            {
+                return NewDirection;
+            }
 
+            if (NextCell.IsWall)
+            {
+                return Direction.NONE;
+            }
+
+            return CurrentDirection;
         }
 
         protected override void ProcessCell()

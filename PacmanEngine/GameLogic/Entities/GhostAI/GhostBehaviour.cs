@@ -43,13 +43,13 @@ namespace PacmanEngine.GameLogic.Entities.GhostAi
                 Direction.DOWN
             };
             return allDirections
-                .Where(d => d != ghost.OppositeDirection && !(ghost.GetNextCell(d).IsWall))
+                .Where(d => d != ghost.OppositeDirection && !ghost.GetNextCell(d).IsWall)
                 .ToList();
         }
 
         private Direction GetDirectionForFrightened(List<Direction> directions)
         {
-            if (!(ghost.NextCell.IsWall))
+            if (!ghost.NextCell.IsWall)
             {
                 return ghost.CurrentDirection;
             }
@@ -58,7 +58,7 @@ namespace PacmanEngine.GameLogic.Entities.GhostAi
             return directions[rand.Next(0, directions.Count - 1)];
         }
 
-        protected static double CalculateDistanceBetweenCells(Cell firstCell, Cell secondCell)
+        protected static double DistanceBetweenCells(Cell firstCell, Cell secondCell)
         {
             double distanceX = firstCell.CellX - secondCell.CellX;
             double distanceY = firstCell.CellY - secondCell.CellY;
@@ -67,12 +67,12 @@ namespace PacmanEngine.GameLogic.Entities.GhostAi
 
         private Direction GetBestDirection(List<Direction> directions)
         {
-            double minimalDistance = CalculateDistanceBetweenCells(ghost.GetNextCell(directions[0]), TargetCell);
-            Direction bestDirection = directions[0];
+            Direction bestDirection = default;
+            double minimalDistance = double.PositiveInfinity;
 
             foreach (Direction direction in directions)
             {
-                double distanceToTarget = CalculateDistanceBetweenCells(ghost.GetNextCell(direction), TargetCell);
+                double distanceToTarget = DistanceBetweenCells(ghost.GetNextCell(direction), TargetCell);
                 if (distanceToTarget < minimalDistance)
                 {
                     minimalDistance = distanceToTarget;
