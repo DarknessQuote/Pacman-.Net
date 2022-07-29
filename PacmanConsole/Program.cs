@@ -20,7 +20,7 @@ namespace PacMan
             Renderer renderer = new();
             var sw = new Stopwatch();
 
-            while (true)
+            while (renderer.IsRunning)
             {
                 sw.Start();
 

@@ -6,6 +6,7 @@ namespace PacmanConsole.ConsoleUI
     class Renderer
     {
         private IScreen currentScreen;
+        public bool IsRunning { get; set; } = true;
 
         public Renderer()
         {

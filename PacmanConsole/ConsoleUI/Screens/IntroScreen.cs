@@ -85,7 +85,7 @@ namespace PacmanConsole.ConsoleUI.Screens
                     renderer.SwitchScreens(new InstructionsScreen(renderer));
                     break;
                 case MenuOptions.Exit:
-                    Environment.Exit(0);
+                    renderer.IsRunning = false;
                     break;
             }
         }
