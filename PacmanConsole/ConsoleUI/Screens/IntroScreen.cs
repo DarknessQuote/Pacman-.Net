@@ -76,15 +76,15 @@ namespace PacmanConsole.ConsoleUI.Screens
 
         private void SelectOption()
         {
-            switch (selectedOptionIndex)
+            switch ((MenuOptions)selectedOptionIndex)
             {
-                case (int)MenuOptions.NewGame:
+                case MenuOptions.NewGame:
                     renderer.SwitchScreens(new GameScreen(renderer));
                     break;
-                case (int)MenuOptions.Instructions:
+                case MenuOptions.Instructions:
                     renderer.SwitchScreens(new InstructionsScreen(renderer));
                     break;
-                case (int)MenuOptions.Exit:
+                case MenuOptions.Exit:
                     Environment.Exit(0);
                     break;
             }
