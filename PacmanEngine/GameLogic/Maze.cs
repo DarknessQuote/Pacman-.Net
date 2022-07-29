@@ -69,34 +69,39 @@ namespace PacmanEngine.GameLogic
             }
         }
 
+        private void SetStartingCoordinates(Tile entityTile)
+        {
+            var entityStartingCoords = (entityTile.CoordX, entityTile.CoordY);
+            map[entityTile.CoordX, entityTile.CoordY].AddTile(new EmptyTile(entityTile.CoordX, entityTile.CoordY));
+
+            switch (entityTile)
+            {
+                case Pacman:
+                    PacmanStartingCoords = entityStartingCoords;
+                    break;
+                case RedGhost:
+                    RedStartingCoords = entityStartingCoords;
+                    RedGhostTile = entityTile;
+                    break;
+                case PinkGhost:
+                    PinkStartingCoords = entityStartingCoords;
+                    break;
+                case CyanGhost:
+                    CyanStartingCoords = entityStartingCoords;
+                    break;
+                case OrangeGhost:
+                    OrangeStartingCoords = entityStartingCoords;
+                    break;
+            }
+        }
+
         private void HookEventsToMaze()
         {
-            Pacman.PacmanTileCreated += (pacmanTile) =>
-            {
-                PacmanStartingCoords = (pacmanTile.CoordX, pacmanTile.CoordY);
-                map[pacmanTile.CoordX, pacmanTile.CoordY].AddTile(new EmptyTile(pacmanTile.CoordX, pacmanTile.CoordY));
-            };
-            RedGhost.RedGTileCreated += (redTile) =>
-            {
-                RedStartingCoords = (redTile.CoordX, redTile.CoordY);
-                map[redTile.CoordX, redTile.CoordY].AddTile(new EmptyTile(redTile.CoordX, redTile.CoordY));
-                RedGhostTile = redTile;
-            };
-            PinkGhost.PinkGTileCreated += (pinkTile) =>
-            {
-                PinkStartingCoords = (pinkTile.CoordX, pinkTile.CoordY);
-                map[pinkTile.CoordX, pinkTile.CoordY].AddTile(new EmptyTile(pinkTile.CoordX, pinkTile.CoordY));
-            };
-            CyanGhost.CyanGTileCreated += (cyanTile) =>
-            {
-                CyanStartingCoords = (cyanTile.CoordX, cyanTile.CoordY);
-                map[cyanTile.CoordX, cyanTile.CoordY].AddTile(new EmptyTile(cyanTile.CoordX, cyanTile.CoordY));
-            };
-            OrangeGhost.OrangeGTileCreated += (orangeTile) =>
-            {
-                OrangeStartingCoords = (orangeTile.CoordX, orangeTile.CoordY);
-                map[orangeTile.CoordX, orangeTile.CoordY].AddTile(new EmptyTile(orangeTile.CoordX, orangeTile.CoordY));
-            };
+            Pacman.PacmanTileCreated += (pacmanTile) => SetStartingCoordinates(pacmanTile);
+            RedGhost.RedGTileCreated += (redTile) => SetStartingCoordinates(redTile);
+            PinkGhost.PinkGTileCreated += (pinkTile) => SetStartingCoordinates(pinkTile);
+            CyanGhost.CyanGTileCreated += (cyanTile) => SetStartingCoordinates(cyanTile);
+            OrangeGhost.OrangeGTileCreated += (orangeTile) => SetStartingCoordinates(orangeTile);
 
             EatableTile.EatableTileCreated += () => DotCount++;
             EatableTile.EatableTileEaten += () => DotCount--;
