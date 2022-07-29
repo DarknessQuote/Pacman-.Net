@@ -57,9 +57,10 @@ namespace PacmanWinforms.Forms
             this.map1Button.Name = "map1Button";
             this.map1Button.Size = new System.Drawing.Size(145, 66);
             this.map1Button.TabIndex = 2;
+            this.map1Button.Tag = @"Maps\Map1.txt";
             this.map1Button.Text = "Map1";
             this.map1Button.UseVisualStyleBackColor = false;
-            this.map1Button.Click += new System.EventHandler(this.Map1Button_Click);
+            this.map1Button.Click += new System.EventHandler(this.MapButton_Click);
             // 
             // map2Button
             // 
@@ -70,9 +71,10 @@ namespace PacmanWinforms.Forms
             this.map2Button.Name = "map2Button";
             this.map2Button.Size = new System.Drawing.Size(145, 66);
             this.map2Button.TabIndex = 3;
+            this.map2Button.Tag = @"Maps\Map2.txt";
             this.map2Button.Text = "Map2";
             this.map2Button.UseVisualStyleBackColor = false;
-            this.map2Button.Click += new System.EventHandler(this.Map2Button_Click);
+            this.map2Button.Click += new System.EventHandler(this.MapButton_Click);
             // 
             // map3Button
             // 
@@ -83,9 +85,10 @@ namespace PacmanWinforms.Forms
             this.map3Button.Name = "map3Button";
             this.map3Button.Size = new System.Drawing.Size(145, 66);
             this.map3Button.TabIndex = 4;
+            this.map3Button.Tag = @"Maps\Map3.txt";
             this.map3Button.Text = "Map3";
             this.map3Button.UseVisualStyleBackColor = false;
-            this.map3Button.Click += new System.EventHandler(this.Map3Button_Click);
+            this.map3Button.Click += new System.EventHandler(this.MapButton_Click);
             // 
             // map4Button
             // 
@@ -96,9 +99,10 @@ namespace PacmanWinforms.Forms
             this.map4Button.Name = "map4Button";
             this.map4Button.Size = new System.Drawing.Size(145, 66);
             this.map4Button.TabIndex = 5;
+            this.map4Button.Tag = @"Maps\Map4.txt";
             this.map4Button.Text = "Map4";
             this.map4Button.UseVisualStyleBackColor = false;
-            this.map4Button.Click += new System.EventHandler(this.Map4Button_Click);
+            this.map4Button.Click += new System.EventHandler(this.MapButton_Click);
             // 
             // MapSelectForm
             // 
